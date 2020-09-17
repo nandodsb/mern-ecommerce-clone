@@ -1,0 +1,8 @@
+{
+  "workbench.colorCustomizations": {
+    "editorCursor.foreground": "#ff5555",
+    "terminalCursor.foreground": "#ff5555",
+    "powermode.enabled": true,
+    "editor.cursorStyle": "block"
+  }
+}
