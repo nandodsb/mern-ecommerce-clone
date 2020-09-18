@@ -5,11 +5,13 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const config = require('./config/key')
 
-//Const
+//ANCHOR Routes
+const userRoutes = require('./routes/user')
+
+//ANCHOR Variables
 env.config()
 
-app.use(express.json())
-
+//ANCHOR Mongoose Connection
 mongoose
     .connect(config.mongoURI, {
         useNewUrlParser: true,
@@ -17,23 +19,14 @@ mongoose
         useCreateIndex: true,
         useFindAndModify: false,
     })
-    .then(() => console.log('MongoDB Connected...'))
+    .then(() => console.log('Database is connected'))
     .catch((err) => console.log(err))
 
+//ANCHOR Middleware Body Parser
 app.use(bodyParser.json())
+app.use('/api', userRoutes)
 
-app.get('/', (req, res, next) => {
-    res.status(200).json({
-        message: 'Hello from Server',
-    })
-})
-
-app.post('/data', (req, res, next) => {
-    res.status(200).json({
-        message: req.body,
-    })
-})
-
+//ANCHOR Server Port
 const port = process.env.PORT || 3333
 
 app.listen(port, () => {
