@@ -33,3 +33,19 @@ exports.signup = (req, res) => {
         })
     })
 }
+
+exports.signin = (req, res) => {
+    User.findOne({ email: req.body.email})
+        .exec((error, user) => {
+            if(error){
+                return res.status(400).json(error)
+                //console.log(error)
+            }
+            if(user){
+                if(user.authenticate())
+            } else {
+                return res.status(400).json({message: 'Something went wrong'})
+                //console.log(error)                
+            }
+        })        
+}
