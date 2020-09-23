@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const { signup } = require('../controller/auth')
+const { signup, signin } = require('../controller/auth')
 
-router.get('/signin', (req, res) => {})
+router.get('/signin', signin)
 
 router.post('/signup', signup)
 

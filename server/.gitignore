@@ -25,4 +25,5 @@ yarn-error.log*
 .vscode
 .env
 dev.js
+jwtSecret.js
 
