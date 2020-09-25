@@ -53,6 +53,7 @@ exports.signin = (req, res) => {
                 res.status(200).json({
                     token,
                     user: {
+                        _id,
                         firstName,
                         lastName,
                         email,
