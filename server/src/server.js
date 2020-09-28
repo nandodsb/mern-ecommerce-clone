@@ -7,6 +7,7 @@ const config = require('./config/key')
 
 //ANCHOR Routes
 const authRoutes = require('./routes/auth')
+const adminRoutes = require('./routes/admin/auth')
 
 //ANCHOR Variables
 env.config()
@@ -25,6 +26,7 @@ mongoose
 //ANCHOR Middleware Body Parser
 app.use(bodyParser.json())
 app.use('/api', authRoutes)
+app.use('/api', adminRoutes)
 
 //ANCHOR Server Port
 const port = process.env.PORT || 3333
