@@ -5,14 +5,14 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const config = require('./config/key')
 
-//ANCHOR Routes
+//SECTION Routes
 const authRoutes = require('./routes/auth')
 const adminRoutes = require('./routes/admin/auth')
 
-//ANCHOR Variables
+//SECTION Variables
 env.config()
 
-//ANCHOR Mongoose Connection
+//SECTION Mongoose Connection
 mongoose
     .connect(config.mongoURI, {
         useNewUrlParser: true,
@@ -23,12 +23,12 @@ mongoose
     .then(() => console.log('Database is connected'))
     .catch((err) => console.log(err))
 
-//ANCHOR Middleware Body Parser
+//SECTION Middleware Body Parser
 app.use(bodyParser.json())
 app.use('/api', authRoutes)
 app.use('/api', adminRoutes)
 
-//ANCHOR Server Port
+//SECTION Server Port
 const port = process.env.PORT || 3333
 
 app.listen(port, () => {
