@@ -3,7 +3,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 
 const Header = (props) => {
     return (
-        <>
+        <Container>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -38,7 +38,7 @@ const Header = (props) => {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-        </>
+        </Container>
     )
 }
 
