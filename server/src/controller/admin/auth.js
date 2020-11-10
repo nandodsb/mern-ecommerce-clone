@@ -1,8 +1,8 @@
 const User = require('../../models/user')
 const jwt = require('jsonwebtoken')
-const jwtSecret = require('../config/jwtSecret')
+const jwtSecret = require('../../config/jwtSecret')
 
-//SECTION Signup
+//ANCHOR Signup
 exports.signup = (req, res) => {
     User.findOne({ email: req.body.email }).exec((error, user) => {
         if (user)
@@ -38,7 +38,7 @@ exports.signup = (req, res) => {
     })
 }
 
-//SECTION Signin
+//ANCHOR Signin
 exports.signin = (req, res) => {
     User.findOne({ email: req.body.email }).exec((error, user) => {
         if (error) {
@@ -72,7 +72,7 @@ exports.signin = (req, res) => {
     })
 }
 
-//SECTION Require Signin
+//ANCHOR Require Signin
 exports.requireSignin = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1]
     const user = jwt.verify(token, jwtSecret)
