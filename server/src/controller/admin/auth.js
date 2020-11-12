@@ -1,6 +1,6 @@
 const User = require('../../models/user')
 const jwt = require('jsonwebtoken')
-const jwtSecret = require('../../config/jwtSecret')
+const { JWT_SECRET } = require('../../config/jwtSecret')
 
 //ANCHOR Signup
 exports.signup = (req, res) => {
@@ -41,16 +41,15 @@ exports.signup = (req, res) => {
 //ANCHOR Signin
 exports.signin = (req, res) => {
     User.findOne({ email: req.body.email }).exec((error, user) => {
-        if (error) {
-            return res.status(400).json(error)
-            //console.log(error)
-        }
+        if (error) 
+            return res.status(400).json({error})            
+        
         if (user) {
             if (user.authenticate(req.body.password) && user.role === 'admin') {
-                const token = jwt.sign({_id: user._id }, jwtSecret, {
+                const token = jwt.sign({_id: user._id }, JWT_SECRET, {
                     expiresIn: '1h',
                 })
-                const { firstName, lastName, email, role, fullName } = user
+                const { _id, firstName, lastName, email, role, fullName } = user
                 res.status(200).json({
                     token,
                     user: {
@@ -60,8 +59,8 @@ exports.signin = (req, res) => {
                         email,
                         role,
                         fullName,
-                    },
-                })
+                    }                
+                }) 
             } else {
                 return res.status(400).json({ message: 'Invalid password' })
             }
@@ -75,7 +74,7 @@ exports.signin = (req, res) => {
 //ANCHOR Require Signin
 exports.requireSignin = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1]
-    const user = jwt.verify(token, jwtSecret)
+    const user = jwt.verify(token, JWT_SECRET)
     req.user = user
     next()
 }
