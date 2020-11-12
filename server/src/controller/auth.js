@@ -40,13 +40,11 @@ exports.signup = (req, res) => {
 //ANCHOR Signin
 exports.signin = (req, res) => {
     User.findOne({ email: req.body.email }).exec((error, user) => {
-        if (error) {
-            return res.status(400).json(error)
-            //console.log(error)
-        }
+        if (error) return res.status(400).json({ error })
+
         if (user) {
             if (user.authenticate(req.body.password)) {
-                const token = jwt.sign({ id: user._id }, jwtSecret, {
+                const token = jwt.sign({_id: user._id }, jwtSecret, {
                     expiresIn: '1h',
                 })
                 const { firstName, lastName, email, role, fullName } = user
@@ -66,7 +64,6 @@ exports.signin = (req, res) => {
             }
         } else {
             return res.status(400).json({ message: 'Something went wrong' })
-            //console.log(error)
         }
     })
 }
@@ -77,4 +74,9 @@ exports.requireSignin = (req, res, next) => {
     const user = jwt.verify(token, jwtSecret)
     req.user = user
     next()
+}
+
+exports.test = (req, res) => {
+    res.status(200).json({ message: 'test' })
+    console.log('test')
 }
