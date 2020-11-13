@@ -7,6 +7,7 @@ const config = require('./config/key')
 //ANCHOR Routes
 const authRoutes = require('./routes/auth')
 const adminRoutes = require('./routes/admin/auth')
+const categoryRoutes = require('./routes/category')
 
 //ANCHOR Variables
 env.config()
@@ -26,6 +27,7 @@ mongoose
 app.use(express.json())
 app.use('/api', authRoutes)
 app.use('/api', adminRoutes)
+app.use('/api', categoryRoutes)
 
 //ANCHOR Server Port
 const port = process.env.PORT || 3333
