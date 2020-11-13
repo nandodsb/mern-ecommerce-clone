@@ -1,7 +1,6 @@
 const express = require('express')
 const env = require('dotenv')
 const app = express()
-const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const config = require('./config/key')
 
@@ -24,7 +23,7 @@ mongoose
     .catch((err) => console.log(err))
 
 //ANCHOR Middleware Body Parser
-app.use(bodyParser.json())
+app.use(express.json())
 app.use('/api', authRoutes)
 app.use('/api', adminRoutes)
 

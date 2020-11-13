@@ -68,15 +68,9 @@ exports.signin = (req, res) => {
     })
 }
 
-//ANCHOR Require Signin
-exports.requireSignin = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1]
-    const user = jwt.verify(token, JWT_SECRET)
-    req.user = user
-    next()
-}
 
-exports.test = (req, res) => {
+
+/** exports.test = (req, res) => {
     res.status(200).json({ message: 'test' })
     console.log('test')
-}
+}*/
