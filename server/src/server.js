@@ -8,6 +8,7 @@ const config = require('./config/key')
 const authRoutes = require('./routes/auth')
 const adminRoutes = require('./routes/admin/auth')
 const categoryRoutes = require('./routes/category')
+const productRoutes = require('./routes/product')
 
 //ANCHOR Variables
 env.config()
@@ -28,6 +29,7 @@ app.use(express.json())
 app.use('/api', authRoutes)
 app.use('/api', adminRoutes)
 app.use('/api', categoryRoutes)
+app.use('/api', productRoutes)
 
 //ANCHOR Server Port
 const port = process.env.PORT || 3333
