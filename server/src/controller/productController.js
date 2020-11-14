@@ -1,10 +1,8 @@
 const Product = require('../models/product')
-//const shortid = require('shortid')
 const slugify = require('slugify')
 
 exports.createProduct = (req, res) => {
-  //res.status(200).json({file: req.files, body: req.body})
-
+  
   const {
     name, price, quantity, description, category, createdBy
   } = req.body
@@ -13,12 +11,12 @@ exports.createProduct = (req, res) => {
 
   if(req.files.length > 0) {
     productPictures = req.files.map(file => {
-      return { img: file.filename}
+      return { img: file.filename }
     })
   }
 
   const product = new Product({
-    name,
+    name: name,
     slug: slugify(name),
     price,
     quantity,

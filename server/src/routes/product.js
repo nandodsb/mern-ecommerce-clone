@@ -3,7 +3,7 @@ const multer = require('multer')
 const shortid = require('shortid')
 const path = require('path')
 const { requireSignin, adminMiddleware } = require('../common-middleware')
-const { createProduct} = require('../controller/product')
+const { createProduct} = require('../controller/productController')
 const router = express.Router()
 
 

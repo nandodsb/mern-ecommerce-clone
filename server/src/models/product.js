@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
+const mongoSchema = mongoose.Schema
 
+const schemaTypes = mongoose.Schema.Types.ObjectId
 
 const productSchema = new mongoose.Schema(
   { 
@@ -21,8 +23,8 @@ const productSchema = new mongoose.Schema(
   },
 
   quantity: {
-    type: Number,
-    required: true
+      type: Number,
+      required: true
   },
 
   description: {

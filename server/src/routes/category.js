@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { requireSignin, adminMiddleware } = require('../common-middleware')
-const { addCategory, getCategories } = require('../controller/category')
+const { addCategory, getCategories } = require('../controller/categoryController')
 
 
 router.post('/category/create', requireSignin, adminMiddleware, addCategory)
