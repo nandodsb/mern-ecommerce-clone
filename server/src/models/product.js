@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const mongoSchema = mongoose.Schema
 
-const schemaTypes = mongoose.Schema.Types.ObjectId
+const schemaTypes = mongoSchema.Types.ObjectId
 
-const productSchema = new mongoose.Schema(
+const productSchema = new mongoSchema(
   { 
     name: {
     type: String,
@@ -47,17 +47,17 @@ const productSchema = new mongoose.Schema(
 
   reviews: [
     {
-      userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+      userId: {type: schemaTypes, ref: 'User'},
       review: String
     }
   ],
 
-  category: {
-    type: {type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true}
+  category:  {
+    type: schemaTypes, ref: 'Category', required: true
   },
 
-  createBy: {
-    type: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}
+  createdBy: {
+    type: schemaTypes, ref: 'User', required: true
   },
 
   updatedAt: Date,

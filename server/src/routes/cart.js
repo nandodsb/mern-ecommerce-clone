@@ -6,5 +6,4 @@ const { addItemToCart } = require('../controller/cartController')
 
 router.post('/user/cart/addtocart', requireSignin, userMiddleware, addItemToCart)
 
-
 module.exports = router
