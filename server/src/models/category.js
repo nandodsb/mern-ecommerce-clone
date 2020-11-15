@@ -15,6 +15,10 @@ const categorySchema = new mongoSchema(
     unique: true
   },
 
+  categoryImage: {
+    type: String
+  },
+
   parentId: {
       type: String
   }

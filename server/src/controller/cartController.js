@@ -9,20 +9,52 @@ exports.addItemToCart = (req, res) => {
       if (cart) {
         //if cart already exists then update cart by quantity
 
-        Cart.findOneAndUpdate({ user: req.user._id}, {
-          "$push": {
-            "cartItems": req.body.cartItems
+        const addedQuantity = req.body.cartItems.quantity
+        const product = req.body.cartItems.product
+        const item = cart.cartItems.find(isItemAdded => isItemAdded.product == req.body.cartItems.product)
+        let condition, update
+
+
+
+        if (item) {
+
+          condition = { "user": req.user._id, "cartItems.product": product }
+          update = {
+            "$set": {
+              "cartItems.$": {...req.body.cartItems, quantity: item.quantity + addedQuantity}
+            }
           }
-        }).exec((error, _cart) => {
-          if (error) return res.status(400).json({ error })
 
-          if (_cart) {
-            return res.status(201).json({ cart: _cart })            
+          Cart.findOneAndUpdate({ "user": req.user._id, "cartItems.product": product}, {
+            "$set": {
+              "cartItems.$": {...req.body.cartItems, quantity: item.quantity + addedQuantity}
+            }
+          }).exec((error, _cart) => {
+            if (error) return res.status(400).json({ error })
+  
+            if (_cart) {
+              return res.status(201).json({ cart: _cart })            
+            }
+          }) 
+
+        } else {
+
+          condtion = { user: req.user._id }
+          update = {
+            "$push": {
+              "cartItems": req.body.cartItems
+            }
           }
-        }) 
+        } 
 
-        //res.status(409).json({ message: 'Cart already exists', cart })
-
+          Cart.findOneAndUpdate(condition, update)
+          .exec((error, _cart) => {
+            if (error) return res.status(400).json({ error })
+  
+            if (_cart) {
+              return res.status(201).json({ cart: _cart })            
+            }
+          })
       } else {
         //if cart doesn't exist then create new cart
         const cart = new Cart({
