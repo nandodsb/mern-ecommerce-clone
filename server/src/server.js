@@ -4,6 +4,7 @@ const app = express()
 const mongoose = require('mongoose')
 const config = require('./config/key')
 const path = require('path')
+const cors = require('cors')
 
 //ANCHOR Routes
 const authRoutes = require('./routes/auth')
@@ -26,7 +27,9 @@ mongoose
     .then(() => console.log('Database is connected'))
     .catch((err) => console.log(err))
 
-//ANCHOR Middleware Body Parser
+//ANCHOR Middleware
+
+app.use(cors())
 app.use(express.json())
 app.use('/public', express.static(path.join(__dirname, 'uploads')))
 app.use('/api', authRoutes)
