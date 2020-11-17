@@ -10,6 +10,9 @@ const initialState = {
     },
     authenticate: false,
     authenticating: false,
+    loading: false,
+    error: null,
+    message: '',
 }
 
 export default (state = initialState, action) => {
@@ -36,7 +39,22 @@ export default (state = initialState, action) => {
 
         case authConstants.LOGOUT_REQUEST:
             state = {
+                ...state,
+                loading: true,
+            }
+            break
+
+        case authConstants.LOGOUT_SUCCESS:
+            state = {
                 ...initialState,
+            }
+            break
+
+        case authConstants.LOGOUT_FAILURE:
+            state = {
+                ...state,
+                error: action.payload.error,
+                loading: false,
             }
             break
     }

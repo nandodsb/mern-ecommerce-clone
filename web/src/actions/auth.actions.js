@@ -6,12 +6,12 @@ export const login = (user) => {
 
     return async (dispatch) => {
         dispatch({ type: authConstants.LOGIN_REQUEST })
-        const response = await axios.post(`/admin/signin`, {
+        const res = await axios.post(`/admin/signin`, {
             ...user,
         })
 
-        if (response.status === 200) {
-            const { token, user } = response.data
+        if (res.status === 200) {
+            const { token, user } = res.data
             localStorage.setItem('token', token)
             localStorage.setItem('user', JSON.stringify(user))
             dispatch({
@@ -22,10 +22,10 @@ export const login = (user) => {
                 },
             })
         } else {
-            if (response.status === 401) {
+            if (res.status === 401) {
                 dispatch({
                     type: authConstants.LOGIN_FAILURE,
-                    payload: { error: response.data.error },
+                    payload: { error: res.data.error },
                 })
             }
         }
@@ -62,9 +62,19 @@ export const isUserLoggedIn = () => {
 
 export const signout = () => {
     return async (dispatch) => {
-        localStorage.clear()
-        dispatch({
-            type: authConstants.LOGOUT_REQUEST,
-        })
+        dispatch({ type: authConstants.LOGOUT_REQUEST })
+        const res = await axios.post(`/admin/signout`)
+
+        if (res.status === 200) {
+            localStorage.clear()
+            dispatch({
+                type: authConstants.LOGOUT_SUCCESS,
+            })
+        } else {
+            dispatch({
+                type: authConstants.LOGOUT_FAILURE,
+                payload: { error: res.data.error },
+            })
+        }
     }
 }

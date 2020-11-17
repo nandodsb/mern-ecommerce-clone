@@ -41,15 +41,19 @@ exports.signup = (req, res) => {
 //ANCHOR Signin
 exports.signin = (req, res) => {
     User.findOne({ email: req.body.email }).exec((error, user) => {
-        if (error) 
-            return res.status(400).json({error})            
-        
+        if (error) return res.status(400).json({ error })
+
         if (user) {
             if (user.authenticate(req.body.password) && user.role === 'admin') {
-                const token = jwt.sign({_id: user._id, role: user.role }, JWT_SECRET, {
-                    expiresIn: '1h',
-                })
+                const token = jwt.sign(
+                    { _id: user._id, role: user.role },
+                    JWT_SECRET,
+                    {
+                        expiresIn: '1h',
+                    }
+                )
                 const { _id, firstName, lastName, email, role, fullName } = user
+                res.cookie('token', token, { expiresIn: '1h' })
                 res.status(200).json({
                     token,
                     user: {
@@ -59,8 +63,8 @@ exports.signin = (req, res) => {
                         email,
                         role,
                         fullName,
-                    }                
-                }) 
+                    },
+                })
             } else {
                 return res.status(400).json({ message: 'Invalid password' })
             }
@@ -71,3 +75,10 @@ exports.signin = (req, res) => {
     })
 }
 
+//ANCHOR Signout
+exports.signout = (req, res) => {
+    res.clearCookie('token')
+    res.status(200).json({
+        message: 'Signout successfully',
+    })
+}

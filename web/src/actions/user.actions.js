@@ -10,7 +10,7 @@ export const signup = (user) => {
             ...user,
         })
 
-        if (response.status === 201) {
+        if (response.status === 200) {
             const { message } = response.data
 
             dispatch({
@@ -20,7 +20,7 @@ export const signup = (user) => {
                 },
             })
         } else {
-            if (response.status === 401) {
+            if (response.status === 400) {
                 dispatch({
                     type: userConstants.USER_REGISTER_FAILURE,
                     payload: { error: response.data.error },
