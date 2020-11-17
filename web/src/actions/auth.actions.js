@@ -22,26 +22,20 @@ export const login = (user) => {
                 },
             })
         } else {
-            if (res.status === 401) {
+            if (res.status === 400) {
                 dispatch({
                     type: authConstants.LOGIN_FAILURE,
                     payload: { error: res.data.error },
                 })
             }
         }
-
-        /*dispatch({
-            type: authConstants.LOGIN_REQUEST,
-            payload: {
-                ...user,
-            },
-        })*/
     }
 }
 
 export const isUserLoggedIn = () => {
     return async (dispatch) => {
         const token = localStorage.getItem('token')
+
         if (token) {
             const user = JSON.parse(localStorage.getItem('user'))
             dispatch({

@@ -11,7 +11,7 @@ exports.signup = (req, res) => {
             })
 
         const { firstName, lastName, email, password } = req.body
-        const _user = new User({            
+        const _user = new User({
             firstName,
             lastName,
             email,
@@ -39,25 +39,29 @@ exports.signup = (req, res) => {
 
 //ANCHOR Signin
 exports.signin = (req, res) => {
-    User.findOne({ email: req.body.email}).exec((error, user) => {
+    User.findOne({ email: req.body.email }).exec((error, user) => {
         if (error) return res.status(400).json({ error })
 
         if (user) {
             if (user.authenticate(req.body.password)) {
-                const token = jwt.sign({_id: user._id, role: user.role }, JWT_SECRET, {
-                    expiresIn: '1h',
-                })
+                const token = jwt.sign(
+                    { _id: user._id, role: user.role },
+                    JWT_SECRET,
+                    {
+                        expiresIn: '1d',
+                    }
+                )
                 const { _id, firstName, lastName, email, role, fullName } = user
                 res.status(200).json({
                     token,
                     user: {
-                        _id, 
+                        _id,
                         firstName,
                         lastName,
                         email,
                         role,
                         fullName,
-                    }
+                    },
                 })
             } else {
                 return res.status(400).json({ message: 'Invalid password' })
@@ -68,7 +72,13 @@ exports.signin = (req, res) => {
     })
 }
 
-
+//ANCHOR Signout
+exports.signout = (req, res) => {
+    res.clearCookie('token')
+    res.status(200).json({
+        message: 'Signout successfully',
+    })
+}
 
 /** exports.test = (req, res) => {
     res.status(200).json({ message: 'test' })
