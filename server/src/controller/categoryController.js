@@ -5,15 +5,9 @@ function createCategories(categories, parentId = null) {
     const categoryList = []
     let category
     if (parentId == null) {
-        category = categories.filter(
-            (allParentCategoriesWithNoParentId) =>
-                allParentCategoriesWithNoParentId.parentId == undefined
-        )
+        category = categories.filter((cat) => cat.parentId == undefined)
     } else {
-        category = categories.filter(
-            (allParentCategoriesWithNoParentId) =>
-                allParentCategoriesWithNoParentId.parentId == parentId
-        )
+        category = categories.filter((cat) => cat.parentId == parentId)
     }
 
     for (let thisCategory of category) {
@@ -44,12 +38,12 @@ exports.addCategory = (req, res) => {
         categoryObject.parentId = req.body.parentId
     }
 
-    const category = new Category(categoryObject)
-    category.save((error, categoryAdded) => {
+    const cat = new Category(categoryObject)
+    cat.save((error, category) => {
         if (error) return res.status(400).json({ error })
 
-        if (categoryAdded) {
-            return res.status(201).json({ categoryAdded })
+        if (category) {
+            return res.status(201).json({ category })
         }
     })
 }
