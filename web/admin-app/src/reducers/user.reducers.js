@@ -32,6 +32,9 @@ export default (state = initialState, action) => {
                 error: action.payload.error,
             }
             break
+
+        default:
+            return initialState
     }
     return state
 }

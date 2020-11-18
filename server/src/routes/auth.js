@@ -11,7 +11,7 @@ const {
 
 router.post('/signin', validateSigninRequest, isRequestValidated, signin)
 router.post('/signup', validateSignupRequest, isRequestValidated, signup)
-router.post('/signout', validateSignupRequest, isRequestValidated, signout)
+router.post('/signout', signout)
 
 /**router.post('/profile', requireSignin, (req, res) => {
     res.status(200).json({ user: 'profile' })
