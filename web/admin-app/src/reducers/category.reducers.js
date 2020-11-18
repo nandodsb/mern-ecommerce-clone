@@ -6,6 +6,22 @@ const initialState = {
     error: null,
 }
 
+const buildNewCategories = (categories, category) => {
+    let myCategories = []
+
+    for (let cat of categories) {
+        myCategories.push({
+            ...cat,
+            children:
+                cat.children && cat.children.length > 0
+                    ? buildNewCategories(cat.children, category)
+                    : [],
+        })
+    }
+
+    return myCategories
+}
+
 export default (state = initialState, action) => {
     console.log(action)
 
@@ -25,6 +41,11 @@ export default (state = initialState, action) => {
             break
 
         case categoryConstants.ADD_NEW_CATEGORY_SUCCESS:
+            const updatedCategories = buildNewCategories(
+                state.categories,
+                action.payload.category
+            )
+            console.log(updatedCategories)
             state = {
                 ...state,
                 loading: false,
