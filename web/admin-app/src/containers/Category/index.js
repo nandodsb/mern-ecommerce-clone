@@ -11,7 +11,7 @@ const Category = (props) => {
     const category = useSelector((state) => state.category)
     const dispatch = useDispatch()
 
-    //ANCHOR React Bootstrap
+    //ANCHOR React States
     const [show, setShow] = useState(false)
     const [categoryName, setCategoryName] = useState('')
     const [parentCategoryId, setParentCategoryId] = useState('')
@@ -115,7 +115,7 @@ const Category = (props) => {
                         className="form-control"
                         onChange={(e) => setParentCategoryId(e.target.value)}
                     >
-                        <option value="">select category</option>3
+                        <option value="">Select Category</option>3
                         {createCategoryList(category.categories).map(
                             (option) => (
                                 <option key={option.value} value={option.value}>
