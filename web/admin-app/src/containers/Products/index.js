@@ -6,12 +6,14 @@ import Layout from '../../components/Layout'
 import Input from '../../components/UI/Input'
 import Modal from '../../components/UI/Modal'
 
-// import { Container } from './styles';
+import './style.css'
 
 const Products = (props) => {
     const dispatch = useDispatch()
     //ANCHOR React States
     const [show, setShow] = useState(false)
+    const [productDetailModal, setProductDetailModal] = useState(false)
+    const [productDetails, setProductDetails] = useState(null)
     const [name, setName] = useState('')
     const [quantity, setQuantity] = useState('')
     const [price, setPrice] = useState('')
@@ -62,26 +64,31 @@ const Products = (props) => {
     /*ANCHOR */
     const renderProducts = () => {
         return (
-            <Table responsive="sm">
+            <Table style={{ fontSize: 12 }} responsive="sm">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Description</th>
+
                         <th>Category</th>
                     </tr>
                 </thead>
                 <tbody>
                     {product.products.length > 0
                         ? product.products.map((product) => (
-                              <tr key={product._id}>
+                              <tr
+                                  onClick={() =>
+                                      showProductDetailModal(product)
+                                  }
+                                  key={product._id}
+                              >
                                   <td>#</td>
                                   <td>{product.name}</td>
                                   <td>{product.price}</td>
                                   <td>{product.quantity}</td>
-                                  <td>{product.description}</td>
+
                                   <td>--</td>
                               </tr>
                           ))
@@ -91,30 +98,9 @@ const Products = (props) => {
         )
     }
 
-    return (
-        <Layout sidebar>
-            <Container fluid>
-                <Row>
-                    <Col md={12}>
-                        <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                            }}
-                        >
-                            <h3>Product</h3>
-                            <Button variant="dark" onClick={handleShow}>
-                                Add
-                            </Button>
-                        </div>
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col>{renderProducts()}</Col>
-                </Row>
-            </Container>
-
+    /*ANCHOR */
+    const renderAddProductModal = () => {
+        return (
             <Modal
                 show={show}
                 handleClose={handleClose}
@@ -177,6 +163,66 @@ const Products = (props) => {
                     onChange={handleProductPictures}
                 />
             </Modal>
+        )
+    }
+
+    const handleCloseDetailsModal = () => {
+        setProductDetailModal(false)
+    }
+
+    const renderProductDetailsModal = () => {
+        if (!productDetails) {
+            return null
+        }
+
+        return (
+            <Modal
+                show={productDetailModal}
+                handleClose={handleCloseDetailsModal}
+                modalTitle={`Product Details`}
+                size="lg"
+            >
+                <Row>
+                    <Col md={6}>
+                        <label className="key">Name</label>
+                        <p className="value">{productDetails.name}</p>
+                    </Col>
+                </Row>
+            </Modal>
+        )
+    }
+
+    const showProductDetailModal = (product) => {
+        setProductDetails(product)
+        setProductDetailModal(true)
+        console.log(product)
+    }
+
+    return (
+        <Layout sidebar>
+            <Container fluid>
+                <Row>
+                    <Col md={12}>
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                            }}
+                        >
+                            <h3>Product</h3>
+                            <Button variant="dark" onClick={handleShow}>
+                                Add
+                            </Button>
+                        </div>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col>{renderProducts()}</Col>
+                </Row>
+            </Container>
+            {renderAddProductModal()}
+            {renderProductDetailsModal()}
         </Layout>
     )
 }
