@@ -56,6 +56,10 @@ const Products = (props) => {
         setProductPictures([...productPictures, e.target.files[0]])
     }
 
+    console.log(productPictures)
+
+    /*ANCHOR */
+
     return (
         <Layout sidebar>
             <Container fluid>
