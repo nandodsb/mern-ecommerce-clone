@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Button, Modal } from 'react-bootstrap'
+import { Container, Row, Col, Button, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProduct } from '../../actions'
 import Layout from '../../components/Layout'
 import Input from '../../components/UI/Input'
+import Modal from '../../components/UI/Modal'
 
 // import { Container } from './styles';
 
@@ -78,76 +79,121 @@ const Products = (props) => {
                         </div>
                     </Col>
                 </Row>
+
+                <Row>
+                    <Col>
+                        <Table
+                            responsive="sm"
+                            striped
+                            bordered
+                            hover
+                            variant="dark"
+                        >
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Table heading</th>
+                                    <th>Table heading</th>
+                                    <th>Table heading</th>
+                                    <th>Table heading</th>
+                                    <th>Table heading</th>
+                                    <th>Table heading</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
             </Container>
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add New Product</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Input
-                        value={name}
-                        placeholder={`Product Name`}
-                        onChange={(e) => setName(e.target.value)}
-                    />
+            <Modal
+                show={show}
+                handleClose={handleClose}
+                modalTitle={'Add New Product'}
+            >
+                <Input
+                    value={name}
+                    placeholder={`Product Name`}
+                    onChange={(e) => setName(e.target.value)}
+                />
 
-                    <Input
-                        value={quantity}
-                        placeholder={`Quantity`}
-                        onChange={(e) => setQuantity(e.target.value)}
-                    />
+                <Input
+                    value={quantity}
+                    placeholder={`Quantity`}
+                    onChange={(e) => setQuantity(e.target.value)}
+                />
 
-                    <Input
-                        value={price}
-                        placeholder={`Price`}
-                        onChange={(e) => setPrice(e.target.value)}
-                    />
+                <Input
+                    value={price}
+                    placeholder={`Price`}
+                    onChange={(e) => setPrice(e.target.value)}
+                />
 
-                    <Input
-                        value={description}
-                        placeholder={`Description`}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
+                <Input
+                    value={description}
+                    placeholder={`Description`}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
 
-                    {/*<Input
+                {/*<Input
                         label="Category"
                         value={categoryId}
                         placeholder={`Category`}
                         onChange={(e) => setCategoryId(e.target.value)}
                     />*/}
 
-                    <select
-                        value={categoryId}
-                        className="form-control"
-                        onChange={(e) => setCategoryId(e.target.value)}
-                    >
-                        <option value="">Select Category</option>3
-                        {createCategoryList(category.categories).map(
-                            (option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.name}
-                                </option>
-                            )
-                        )}
-                    </select>
+                <select
+                    value={categoryId}
+                    className="form-control"
+                    onChange={(e) => setCategoryId(e.target.value)}
+                >
+                    <option value="">Select Category</option>3
+                    {createCategoryList(category.categories).map((option) => (
+                        <option key={option.value} value={option.value}>
+                            {option.name}
+                        </option>
+                    ))}
+                </select>
 
-                    {productPictures.length > 0
-                        ? productPictures.map((pic, index) => (
-                              <div key={index}>{pic.name}</div>
-                          ))
-                        : null}
+                {productPictures.length > 0
+                    ? productPictures.map((pic, index) => (
+                          <div key={index}>{pic.name}</div>
+                      ))
+                    : null}
 
-                    <Input
-                        type="file"
-                        name={productPictures}
-                        onChange={handleProductPictures}
-                    />
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
+                <Input
+                    type="file"
+                    name={productPictures}
+                    onChange={handleProductPictures}
+                />
             </Modal>
         </Layout>
     )

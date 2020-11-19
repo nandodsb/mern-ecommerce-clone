@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Button, Modal } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllCategory, addCategory } from '../../actions'
+import { addCategory } from '../../actions'
 import Layout from '../../components/Layout'
 import Input from '../../components/UI/Input'
-import NewModal from '../../components/UI/Modal'
+import Modal from '../../components/UI/Modal'
 
 // import { Container } from './styles';
 
@@ -98,10 +98,10 @@ const Category = (props) => {
                 </Row>
             </Container>
 
-            <NewModal
+            <Modal
                 show={show}
                 handleClose={handleClose}
-                modalTitle={'Add new Category'}
+                modalTitle={'Add New Category'}
             >
                 <Input
                     value={categoryName}
@@ -127,7 +127,7 @@ const Category = (props) => {
                     name="categoryImage"
                     onChange={handleCategoryImage}
                 />
-            </NewModal>
+            </Modal>
         </Layout>
     )
 }
