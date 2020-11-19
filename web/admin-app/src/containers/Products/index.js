@@ -19,6 +19,7 @@ const Products = (props) => {
     const [categoryId, setCategoryId] = useState('')
     const [productPictures, setProductPictures] = useState([])
     const category = useSelector((state) => state.category)
+    const product = useSelector((state) => state.product)
 
     const handleClose = () => {
         const form = new FormData()
@@ -61,7 +62,7 @@ const Products = (props) => {
     /*ANCHOR */
     const renderProducts = () => {
         return (
-            <Table responsive="sm" striped bordered hover variant="dark">
+            <Table responsive="sm">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -73,14 +74,18 @@ const Products = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>2</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                    </tr>
+                    {product.products.length > 0
+                        ? product.products.map((product) => (
+                              <tr key={product._id}>
+                                  <td>#</td>
+                                  <td>{product.name}</td>
+                                  <td>{product.price}</td>
+                                  <td>{product.quantity}</td>
+                                  <td>{product.description}</td>
+                                  <td>--</td>
+                              </tr>
+                          ))
+                        : null}
                 </tbody>
             </Table>
         )

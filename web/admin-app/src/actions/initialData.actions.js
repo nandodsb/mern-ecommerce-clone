@@ -9,7 +9,7 @@ export const getInitialData = () => {
     return async (dispatch) => {
         //dispatch({ type: initialDataConstants.GET_ALL_INITIAL_DATA_REQUEST })
 
-        const res = await axios.get(`/initialData`)
+        const res = await axios.post(`/initialData`)
         console.log(res)
 
         if (res.status === 200) {
