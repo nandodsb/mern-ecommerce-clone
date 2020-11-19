@@ -59,17 +59,17 @@ const userSchema = new mongoSchema(
     { timestamps: true }
 )
 
-userSchema.virtual('password').set(function (password) {
-    this.hash_password = bcrypt.hashSync(password, 10)
-})
+//userSchema.virtual('password').set(function (password) {
+//    this.hash_password = bcrypt.hashSync(password, 10)
+//})
 
 userSchema.virtual('fullName').get(function () {
     return `${this.firstName} ${this.lastName}`
 })
 
 userSchema.methods = {
-    authenticate: function (password) {
-        return bcrypt.compareSync(password, this.hash_password)
+    authenticate: async function (password) {
+        return await bcrypt.compare(password, this.hash_password)
     },
 }
 

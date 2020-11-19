@@ -163,6 +163,7 @@ const Products = (props) => {
                         </option>
                     ))}
                 </select>
+                <br />
 
                 {productPictures.length > 0
                     ? productPictures.map((pic, index) => (

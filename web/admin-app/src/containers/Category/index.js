@@ -122,6 +122,7 @@ const Category = (props) => {
                     ))}
                 </select>
 
+                <br />
                 <input
                     type="file"
                     name="categoryImage"
