@@ -84,7 +84,7 @@ const Category = (props) => {
                             }}
                         >
                             <h3>Category</h3>
-                            <Button variant="primary" onClick={handleShow}>
+                            <Button variant="dark" onClick={handleShow}>
                                 Add
                             </Button>
                         </div>

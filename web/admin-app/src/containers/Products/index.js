@@ -52,7 +52,6 @@ const Products = (props) => {
     }
 
     /*ANCHOR */
-
     const handleProductPictures = (e) => {
         setProductPictures([...productPictures, e.target.files[0]])
     }
@@ -60,6 +59,32 @@ const Products = (props) => {
     console.log(productPictures)
 
     /*ANCHOR */
+    const renderProducts = () => {
+        return (
+            <Table responsive="sm" striped bordered hover variant="dark">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                    </tr>
+                </tbody>
+            </Table>
+        )
+    }
 
     return (
         <Layout sidebar>
@@ -73,7 +98,7 @@ const Products = (props) => {
                             }}
                         >
                             <h3>Product</h3>
-                            <Button variant="primary" onClick={handleShow}>
+                            <Button variant="dark" onClick={handleShow}>
                                 Add
                             </Button>
                         </div>
@@ -81,56 +106,7 @@ const Products = (props) => {
                 </Row>
 
                 <Row>
-                    <Col>
-                        <Table
-                            responsive="sm"
-                            striped
-                            bordered
-                            hover
-                            variant="dark"
-                        >
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Table heading</th>
-                                    <th>Table heading</th>
-                                    <th>Table heading</th>
-                                    <th>Table heading</th>
-                                    <th>Table heading</th>
-                                    <th>Table heading</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </Col>
+                    <Col>{renderProducts()}</Col>
                 </Row>
             </Container>
 

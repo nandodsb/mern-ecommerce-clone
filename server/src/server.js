@@ -12,6 +12,7 @@ const adminRoutes = require('./routes/admin/auth')
 const categoryRoutes = require('./routes/category')
 const productRoutes = require('./routes/product')
 const cartRoutes = require('./routes/cart')
+const initialDataRoutes = require('./routes/admin/initialData')
 
 //ANCHOR Variables
 env.config()
@@ -37,6 +38,7 @@ app.use('/api', adminRoutes)
 app.use('/api', categoryRoutes)
 app.use('/api', productRoutes)
 app.use('/api', cartRoutes)
+app.use('/api', initialDataRoutes)
 
 //ANCHOR Server Port
 const port = process.env.PORT || 3333

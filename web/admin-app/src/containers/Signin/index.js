@@ -35,7 +35,7 @@ const Signin = (props) => {
     return (
         <Layout>
             <Container>
-                <Row style={{ marginTop: '50px' }}>
+                <Row style={{ marginTop: '50px', paddingTop: '60px' }}>
                     <Col md={{ span: 6, offset: 3 }}>
                         <Form onSubmit={userLogin}>
                             <Input
@@ -53,7 +53,7 @@ const Signin = (props) => {
                                 type="password"
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <Button variant="primary" type="submit">
+                            <Button variant="dark" type="submit">
                                 Submit
                             </Button>
                         </Form>
