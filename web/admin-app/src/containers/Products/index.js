@@ -48,7 +48,9 @@ const Products = (props) => {
 
     /*ANCHOR */
 
-    const handleProductPictures = (e) => {}
+    const handleProductPictures = (e) => {
+        setProductPictures([...productPictures, e.target.files[0]])
+    }
 
     return (
         <Layout sidebar>
