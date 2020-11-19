@@ -1,7 +1,9 @@
 <h1 align="center">Ecommerce Clone</h1>
+<!---
 <p align="center">
 <img src=""/>
 </p>
+-->
 
 <div align="center">
 <img src="https://img.shields.io/badge/ECOMMERCE-CLONE-343a40?style=for-the-badge&logo=appveyor"/><img src="https://img.shields.io/badge/LICENSE-MIT-343a40?style=for-the-badge&logo=appveyor" />
