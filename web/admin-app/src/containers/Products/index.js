@@ -5,24 +5,28 @@ import { addProduct } from '../../actions'
 import Layout from '../../components/Layout'
 import Input from '../../components/UI/Input'
 import Modal from '../../components/UI/Modal'
+import { generatePublicUrl } from '../../urlConfig'
 
 import './style.css'
 
 const Products = (props) => {
-    const dispatch = useDispatch()
-    //ANCHOR React States
-    const [show, setShow] = useState(false)
-    const [productDetailModal, setProductDetailModal] = useState(false)
-    const [productDetails, setProductDetails] = useState(null)
+    /*SECTION States*/
     const [name, setName] = useState('')
     const [quantity, setQuantity] = useState('')
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
     const [categoryId, setCategoryId] = useState('')
     const [productPictures, setProductPictures] = useState([])
+    const [show, setShow] = useState(false)
+    const [productDetailModal, setProductDetailModal] = useState(false)
+    const [productDetails, setProductDetails] = useState(null)
     const category = useSelector((state) => state.category)
     const product = useSelector((state) => state.product)
+    const dispatch = useDispatch()
+    /*!SECTION */
 
+    /*SECTION Functions*/
+    /*NOTE handleClose*/
     const handleClose = () => {
         const form = new FormData()
 
@@ -41,9 +45,10 @@ const Products = (props) => {
         setShow(false)
     }
 
+    /*NOTE handleShow*/
     const handleShow = () => setShow(true)
 
-    /*ANCHOR */
+    /*NOTE createCategoryList*/
     const createCategoryList = (categories, options = []) => {
         for (let category of categories) {
             options.push({ value: category._id, name: category.name })
@@ -54,14 +59,14 @@ const Products = (props) => {
         return options
     }
 
-    /*ANCHOR */
+    /*NOTE handleProductPictures*/
     const handleProductPictures = (e) => {
         setProductPictures([...productPictures, e.target.files[0]])
     }
 
-    console.log(productPictures)
+    //console.log(productPictures)
 
-    /*ANCHOR */
+    /*NOTE renderProducts*/
     const renderProducts = () => {
         return (
             <Table style={{ fontSize: 12 }} responsive="sm">
@@ -71,7 +76,6 @@ const Products = (props) => {
                         <th>Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
-
                         <th>Category</th>
                     </tr>
                 </thead>
@@ -80,7 +84,7 @@ const Products = (props) => {
                         ? product.products.map((product) => (
                               <tr
                                   onClick={() =>
-                                      showProductDetailModal(product)
+                                      showProductDetailsModal(product)
                                   }
                                   key={product._id}
                               >
@@ -88,8 +92,7 @@ const Products = (props) => {
                                   <td>{product.name}</td>
                                   <td>{product.price}</td>
                                   <td>{product.quantity}</td>
-
-                                  <td>--</td>
+                                  <td>{product.category.name}</td>
                               </tr>
                           ))
                         : null}
@@ -98,7 +101,7 @@ const Products = (props) => {
         )
     }
 
-    /*ANCHOR */
+    /*NOTE  renderAddProductModal*/
     const renderAddProductModal = () => {
         return (
             <Modal
@@ -130,19 +133,12 @@ const Products = (props) => {
                     onChange={(e) => setDescription(e.target.value)}
                 />
 
-                {/*<Input
-                        label="Category"
-                        value={categoryId}
-                        placeholder={`Category`}
-                        onChange={(e) => setCategoryId(e.target.value)}
-                    />*/}
-
                 <select
                     value={categoryId}
                     className="form-control"
                     onChange={(e) => setCategoryId(e.target.value)}
                 >
-                    <option value="">Select Category</option>3
+                    <option value="">Select Category</option>
                     {createCategoryList(category.categories).map((option) => (
                         <option key={option.value} value={option.value}>
                             {option.name}
@@ -166,39 +162,86 @@ const Products = (props) => {
         )
     }
 
-    const handleCloseDetailsModal = () => {
+    /*NOTE  handleCloseDetailsModal*/
+    const handleCloseProductDetailsModal = () => {
         setProductDetailModal(false)
     }
 
+    /*NOTE  showProductDetailsModal*/
+    const showProductDetailsModal = (product) => {
+        setProductDetails(product)
+        setProductDetailModal(true)
+    }
+
+    /*SECTION  renderProductDetailsModal*/
     const renderProductDetailsModal = () => {
         if (!productDetails) {
             return null
         }
-
+        /*NOTE Return */
         return (
+            /*NOTE Modal */
             <Modal
                 show={productDetailModal}
-                handleClose={handleCloseDetailsModal}
-                modalTitle={`Product Details`}
+                handleClose={handleCloseProductDetailsModal}
+                modalTitle={'Product Details'}
                 size="lg"
             >
+                {/*NOTE Rows Name, Price, Quantity, Category */}
                 <Row>
-                    <Col md={6}>
+                    <Col md="6">
                         <label className="key">Name</label>
                         <p className="value">{productDetails.name}</p>
+                    </Col>
+
+                    <Col md="6">
+                        <label className="key">Price</label>
+                        <p className="value">{productDetails.price}</p>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col md="6">
+                        <label className="key">Quantity</label>
+                        <p className="value">{productDetails.quantity}</p>
+                    </Col>
+
+                    <Col md="6">
+                        <label className="key">Category</label>
+                        <p className="value">{productDetails.category.name}</p>
+                    </Col>
+                </Row>
+
+                {/*NOTE Row Description */}
+                <Row>
+                    <Col md="12">
+                        <label className="key">Description</label>
+                        <p className="value">{productDetails.description}</p>
+                    </Col>
+                </Row>
+
+                {/*NOTE RowProduct Pictures */}
+
+                <Row>
+                    <Col>
+                        <label className="key">Product Pictures</label>
+                        <div style={{ display: 'flex' }}>
+                            {productDetails.productPictures.map((picture) => (
+                                <div className="productImgContainer">
+                                    <img src={generatePublicUrl(picture.img)} />
+                                </div>
+                            ))}
+                        </div>
                     </Col>
                 </Row>
             </Modal>
         )
-    }
+    } /*!SECTION */
+    /*!SECTION Functions*/
 
-    const showProductDetailModal = (product) => {
-        setProductDetails(product)
-        setProductDetailModal(true)
-        console.log(product)
-    }
-
+    /*SECTION  Return*/
     return (
+        /*NOTE  Layout*/
         <Layout sidebar>
             <Container fluid>
                 <Row>
@@ -225,6 +268,6 @@ const Products = (props) => {
             {renderProductDetailsModal()}
         </Layout>
     )
-}
+} /*!SECTION  Return*/
 
 export default Products
