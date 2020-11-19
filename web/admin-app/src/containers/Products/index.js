@@ -26,8 +26,12 @@ const Products = (props) => {
         form.append('quantity', quantity)
         form.append('price', price)
         form.append('description', description)
-        form.append('category', category)
-        form.append('productPictures', productPictures)
+        form.append('category', categoryId)
+
+        for (let pic of productPictures) {
+            form.append('productPicture', pic)
+        }
+
         dispatch(addProduct(form))
 
         setShow(false)
@@ -122,6 +126,12 @@ const Products = (props) => {
                             )
                         )}
                     </select>
+
+                    {productPictures.length > 0
+                        ? productPictures.map((pic, index) => (
+                              <div key={index}>{pic.name}</div>
+                          ))
+                        : null}
 
                     <Input
                         type="file"
