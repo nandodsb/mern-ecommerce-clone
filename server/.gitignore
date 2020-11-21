@@ -26,6 +26,11 @@ yarn-error.log*
 .env
 dev.js
 jwtSecret.js
-src/uploads
+
+
+# Upload content ignored
+src/uploads/*
+# Except the folder itself
+!src/uploads/.gitkeep 
 
 
