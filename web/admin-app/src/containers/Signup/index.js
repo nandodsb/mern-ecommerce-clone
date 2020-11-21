@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { signup } from '../../actions'
 
+import './style.css'
+
 const Signup = (props) => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -37,7 +39,7 @@ const Signup = (props) => {
 
     if (user.loading) {
         return (
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center" id="loader">
                 <div className="spinner-border" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
@@ -49,7 +51,7 @@ const Signup = (props) => {
         <Layout>
             <Container>
                 {user.message}
-                <Row style={{ marginTop: '50px' }}>
+                <Row style={{ marginTop: '50px', paddingTop: '60px' }}>
                     <Col md={{ span: 6, offset: 3 }}>
                         <Form onSubmit={userSignup}>
                             <Row>
@@ -94,7 +96,7 @@ const Signup = (props) => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
 
-                            <Button variant="primary" type="submit">
+                            <Button variant="dark" type="submit">
                                 Submit
                             </Button>
                         </Form>

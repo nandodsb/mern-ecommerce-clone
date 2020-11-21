@@ -6,6 +6,8 @@ import { login } from '../../actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
+import './style.css'
+
 const Signin = (props) => {
     //ANCHOR States
     const [email, setEmail] = useState('')
@@ -30,6 +32,16 @@ const Signin = (props) => {
 
     if (auth.authenticate) {
         return <Redirect to={'/'} />
+    }
+
+    if (auth.authenticating) {
+        return (
+            <div className="d-flex justify-content-center" id="loader">
+                <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
+        )
     }
 
     return (

@@ -94,7 +94,7 @@ const Products = (props) => {
                                   <td>{product.price}</td>
                                   <td>{product.quantity}</td>
                                   <td>{product.description}</td>
-                                  <td>{product.categoryId}</td>
+                                  <td>{product.category._id}</td>
                               </tr>
                           ))
                         : null}
@@ -210,7 +210,7 @@ const Products = (props) => {
 
                     <Col md="6">
                         <label className="key">Category</label>
-                        <p className="value">{productDetails.categoryId}</p>
+                        <p className="value">{productDetails.category._id}</p>
                     </Col>
                 </Row>
 
@@ -242,7 +242,7 @@ const Products = (props) => {
             </Modal>
         )
     } /*!SECTION */
-    /*!SECTION Functions*/
+    /*!SECTION End Functions*/
 
     /*SECTION  Return*/
     return (
@@ -273,6 +273,6 @@ const Products = (props) => {
             {renderProductDetailsModal()}
         </Layout>
     )
-} /*!SECTION  Return*/
+} /*!SECTION  End Return*/
 
 export default Products
