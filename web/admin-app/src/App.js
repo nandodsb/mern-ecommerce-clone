@@ -22,7 +22,7 @@ function App() {
         }
 
         dispatch(getInitialData())
-    }, [auth.authenticate])
+    }, [])
 
     return (
         <div className="App">

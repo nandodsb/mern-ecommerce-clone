@@ -26,5 +26,6 @@ yarn-error.log*
 .env
 dev.js
 jwtSecret.js
+src/uploads
 
 

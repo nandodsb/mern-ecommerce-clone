@@ -10,7 +10,7 @@ import { generatePublicUrl } from '../../urlConfig'
 import './style.css'
 
 const Products = (props) => {
-    /*SECTION States*/
+    /*SECTION State Variables*/
     const [name, setName] = useState('')
     const [quantity, setQuantity] = useState('')
     const [price, setPrice] = useState('')
@@ -76,6 +76,7 @@ const Products = (props) => {
                         <th>Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
+                        <th>Description</th>
                         <th>Category</th>
                     </tr>
                 </thead>
@@ -92,7 +93,8 @@ const Products = (props) => {
                                   <td>{product.name}</td>
                                   <td>{product.price}</td>
                                   <td>{product.quantity}</td>
-                                  <td>{product.category.name}</td>
+                                  <td>{product.description}</td>
+                                  <td>{product.categoryId}</td>
                               </tr>
                           ))
                         : null}
@@ -155,14 +157,14 @@ const Products = (props) => {
 
                 <Input
                     type="file"
-                    name={productPictures}
+                    name="productPicture"
                     onChange={handleProductPictures}
                 />
             </Modal>
         )
     }
 
-    /*NOTE  handleCloseDetailsModal*/
+    /*NOTE  handleCloseProductDetailsModal*/
     const handleCloseProductDetailsModal = () => {
         setProductDetailModal(false)
     }
@@ -208,7 +210,7 @@ const Products = (props) => {
 
                     <Col md="6">
                         <label className="key">Category</label>
-                        <p className="value">{productDetails.category.name}</p>
+                        <p className="value">{productDetails.categoryId}</p>
                     </Col>
                 </Row>
 
@@ -225,7 +227,10 @@ const Products = (props) => {
                 <Row>
                     <Col>
                         <label className="key">Product Pictures</label>
-                        <div style={{ display: 'flex' }}>
+                        <div
+                            style={{ display: 'flex' }}
+                            key={productPictures._id}
+                        >
                             {productDetails.productPictures.map((picture) => (
                                 <div className="productImgContainer">
                                     <img src={generatePublicUrl(picture.img)} />

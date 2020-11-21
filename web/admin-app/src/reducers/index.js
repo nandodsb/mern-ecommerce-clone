@@ -7,7 +7,7 @@ import orderReducer from './order.reducers'
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    //user: userReducer,
+    user: userReducer,
     category: categoryReducer,
     product: productReducer,
     order: orderReducer,
