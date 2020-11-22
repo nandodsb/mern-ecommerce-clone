@@ -1,6 +1,7 @@
 const Product = require('../models/product')
 const slugify = require('slugify')
 const Category = require('../models/category')
+const product = require('../models/product')
 
 exports.createProduct = (req, res) => {
     const { name, price, quantity, description, category, createdBy } = req.body
@@ -40,14 +41,48 @@ exports.getProductsBySlug = (req, res) => {
             if (error) {
                 return res.status(400).json({ error })
             }
+            
             if (category) {
                 Product.find({ category: category._id }).exec(
                     (error, products) => {
-                        res.status(200).json({ products })
+                        if (error) {
+                            return res.status(400).json({ error })
+                        }
+
+                        if (products.length > 0) {
+                            res.status(200).json({
+                                products,
+                                productsByPrice: {
+                                    under5k: products.filter(
+                                        (product) => product.price <= 5000
+                                    ),
+                                    under10k: products.filter(
+                                        (product) =>
+                                            product.price > 5000 &&
+                                            product.price <= 10000
+                                    ),
+                                    under15k: products.filter(
+                                        (product) =>
+                                            product.price > 10000 &&
+                                            product.price <= 15000
+                                    ),
+                                    under20k: products.filter(
+                                        (product) =>
+                                            product.price > 15000 &&
+                                            product.price <= 20000
+                                    ),
+                                    under30k: products.filter(
+                                        (product) =>
+                                            product.price > 20000 &&
+                                            product.price <= 30000
+                                    ),
+                                },
+                            }) //products.length
+                        }
                     }
-                )
-            }
+                ) //exec
+            } //exec arrow function
             //res.status(200).json(category)
-        })
+        }) //Product.find
     //res.status(200).json({ slug })
 }
