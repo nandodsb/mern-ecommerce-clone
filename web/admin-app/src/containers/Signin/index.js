@@ -5,6 +5,7 @@ import Input from '../../components/UI/Input'
 import { login } from '../../actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import Loader from '../../components/Loader'
 
 import './style.css'
 
@@ -35,13 +36,7 @@ const Signin = (props) => {
     }
 
     if (auth.authenticating) {
-        return (
-            <div className="d-flex justify-content-center" id="loader">
-                <div className="spinner-border" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
-            </div>
-        )
+        return <Loader />
     }
 
     return (

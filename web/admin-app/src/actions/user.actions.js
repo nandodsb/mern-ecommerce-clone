@@ -27,12 +27,5 @@ export const signup = (user) => {
                 })
             }
         }
-
-        /*dispatch({
-          type: authConstants.LOGIN_REQUEST,
-          payload: {
-              ...user,
-          },
-      })*/
     }
 }

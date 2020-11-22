@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Form, Button, Row, Col } from 'react-bootstrap'
 import Layout from '../../components/Layout'
 import Input from '../../components/UI/Input'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { signup } from '../../actions'
+import Loader from '../../components/Loader'
 
 import './style.css'
 
@@ -13,6 +14,7 @@ const Signup = (props) => {
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
     // eslint-disable-next-line
     const [error, setError] = useState('')
 
@@ -33,18 +35,21 @@ const Signup = (props) => {
         dispatch(signup(user))
     }
 
-    if (auth.authenticate) {
-        return <Redirect to={'/'} />
-    }
+    //TODO
+    useEffect(() => {
+        if (user.loading) {
+            setTimeout(() => {
+                user.loading = false
+            }, 5000)
+        }
+    }, [user.loading])
 
     if (user.loading) {
-        return (
-            <div className="d-flex justify-content-center" id="loader">
-                <div className="spinner-border" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
-            </div>
-        )
+        return <Loader />
+    } //TODO
+
+    if (auth.authenticate) {
+        return <Redirect to={'/'} />
     }
 
     return (
