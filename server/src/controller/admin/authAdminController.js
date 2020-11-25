@@ -21,7 +21,7 @@ exports.signup = (req, res) => {
             lastName,
             email,
             hash_password,
-            userName: shortid.generate(),
+            username: shortid.generate(),
             role: 'admin',
         })
 
