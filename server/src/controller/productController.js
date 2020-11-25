@@ -1,7 +1,6 @@
 const Product = require('../models/product')
 const slugify = require('slugify')
 const Category = require('../models/category')
-const product = require('../models/product')
 
 exports.createProduct = (req, res) => {
     const { name, price, quantity, description, category, createdBy } = req.body
@@ -41,7 +40,7 @@ exports.getProductsBySlug = (req, res) => {
             if (error) {
                 return res.status(400).json({ error })
             }
-            
+
             if (category) {
                 Product.find({ category: category._id }).exec(
                     (error, products) => {
@@ -81,8 +80,10 @@ exports.getProductsBySlug = (req, res) => {
                         }
                     }
                 ) //exec
-            } //exec arrow function
-            //res.status(200).json(category)
+            } else {
+                res.status(200).json({ products })
+                //res.status(200).json(category)
+            }
         }) //Product.find
     //res.status(200).json({ slug })
 }
