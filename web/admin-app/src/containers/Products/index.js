@@ -76,7 +76,6 @@ const Products = (props) => {
                         <th>Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Description</th>
                         <th>Category</th>
                     </tr>
                 </thead>
@@ -93,8 +92,7 @@ const Products = (props) => {
                                   <td>{product.name}</td>
                                   <td>{product.price}</td>
                                   <td>{product.quantity}</td>
-                                  <td>{product.description}</td>
-                                  <td>{product.category._id}</td>
+                                  <td>{product.category.name}</td>
                               </tr>
                           ))
                         : null}
@@ -140,7 +138,7 @@ const Products = (props) => {
                     className="form-control"
                     onChange={(e) => setCategoryId(e.target.value)}
                 >
-                    <option value="">Select Category</option>
+                    <option>Select Category</option>
                     {createCategoryList(category.categories).map((option) => (
                         <option key={option.value} value={option.value}>
                             {option.name}
@@ -210,7 +208,7 @@ const Products = (props) => {
 
                     <Col md="6">
                         <label className="key">Category</label>
-                        <p className="value">{productDetails.category._id}</p>
+                        <p className="value">{productDetails.category.name}</p>
                     </Col>
                 </Row>
 

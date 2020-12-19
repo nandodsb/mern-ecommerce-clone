@@ -26,6 +26,7 @@ yarn-error.log*
 .env
 dev.js
 jwtSecret.js
+server/uploads
 
 
 # Upload content ignored

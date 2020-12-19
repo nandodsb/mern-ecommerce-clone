@@ -4,7 +4,7 @@ const { JWT_SECRET } = require('../../config/jwtSecret')
 const bcrypt = require('bcrypt')
 const shortid = require('shortid')
 
-//ANCHOR Signup
+//NOTE Signup
 exports.signup = (req, res) => {
     User.findOne({ email: req.body.email }).exec(async (error, user) => {
         if (user)
@@ -21,7 +21,7 @@ exports.signup = (req, res) => {
             lastName,
             email,
             hash_password,
-            username: shortid.generate(),
+            userName: shortid.generate(),
             role: 'admin',
         })
 
@@ -43,7 +43,7 @@ exports.signup = (req, res) => {
     })
 }
 
-//ANCHOR Signin
+//NOTE Signin
 exports.signin = (req, res) => {
     User.findOne({ email: req.body.email }).exec((error, user) => {
         if (error) return res.status(400).json({ error })
@@ -80,7 +80,7 @@ exports.signin = (req, res) => {
     })
 }
 
-//ANCHOR Signout
+//NOTE Signout
 exports.signout = (req, res) => {
     res.clearCookie('token')
     res.status(200).json({

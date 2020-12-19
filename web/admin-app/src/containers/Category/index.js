@@ -12,7 +12,7 @@ const Category = (props) => {
     const category = useSelector((state) => state.category)
     const dispatch = useDispatch()
 
-    //ANCHOR React States
+    //NOTE React States
     const [show, setShow] = useState(false)
     const [categoryName, setCategoryName] = useState('')
     const [parentCategoryId, setParentCategoryId] = useState('')
@@ -55,7 +55,7 @@ const Category = (props) => {
         return myCategories
     }
 
-    /*ANCHOR */
+    /*NOTE */
     const createCategoryList = (categories, options = []) => {
         for (let category of categories) {
             options.push({ value: category._id, name: category.name })
@@ -66,12 +66,12 @@ const Category = (props) => {
         return options
     }
 
-    /*ANCHOR  */
+    /*NOTE  */
     const handleCategoryImage = (e) => {
         setCategoryImage(e.target.files[0])
     }
 
-    /*ANCHOR */
+    /*NOTE */
     return (
         <Layout sidebar>
             <Container fluid>
@@ -90,7 +90,7 @@ const Category = (props) => {
                         </div>
                     </Col>
                 </Row>
-                {/*ANCHOR */}
+                {/*NOTE */}
                 <Row>
                     <Col md={12}>
                         <ul>{renderCategories(category.categories)}</ul>

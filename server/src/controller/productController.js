@@ -80,10 +80,8 @@ exports.getProductsBySlug = (req, res) => {
                         }
                     }
                 ) //exec
-            } else {
-                res.status(200).json({ products })
-                //res.status(200).json(category)
-            }
+            } //exec arrow function
+            //res.status(200).json(category)
         }) //Product.find
     //res.status(200).json({ slug })
 }

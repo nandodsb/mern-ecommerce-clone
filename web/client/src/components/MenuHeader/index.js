@@ -4,7 +4,7 @@ import { getAllCategory } from '../../actions'
 
 import './style.css'
 
-const MenuHeader = () => {
+const MenuHeader = (props) => {
     const category = useSelector((state) => state.category)
     const dispatch = useDispatch()
 

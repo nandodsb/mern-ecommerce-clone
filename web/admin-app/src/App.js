@@ -12,8 +12,8 @@ import { isUserLoggedIn, getInitialData } from './actions'
 import Category from './containers/Category'
 
 function App() {
-    const auth = useSelector((state) => state.auth)
     const dispatch = useDispatch()
+    const auth = useSelector((state) => state.auth)
 
     //
     useEffect(() => {

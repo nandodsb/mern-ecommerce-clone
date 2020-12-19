@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.css'
 
-const Header = () => {
+const Header = (props) => {
     return <div className="header"></div>
 }
 

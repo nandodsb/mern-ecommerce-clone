@@ -28,37 +28,43 @@ const ProductListPage = (props) => {
                 return (
                     <div className="card">
                         <div className="cardHeader">
-                            <div>
+                            <div key={index}>
                                 {props.match.params.slug} Mobile Under{' '}
                                 {priceRange[key]}
                             </div>
                             <button>View All</button>
                         </div>
                         <div style={{ display: 'flex' }}>
-                            {product.productsByPrice[key].map((product) => (
-                                <div className="productContainer">
-                                    <div className="productImgContainer">
-                                        <img
-                                            src={generatePublicUrl(
-                                                product.productPictures[0].img
-                                            )}
-                                            alt=""
-                                        />
+                            {product.productsByPrice[key].map(
+                                (product, index) => (
+                                    <div
+                                        key={index}
+                                        className="productContainer"
+                                    >
+                                        <div className="productImgContainer">
+                                            <img
+                                                src={generatePublicUrl(
+                                                    product.productPictures[0]
+                                                        .img
+                                                )}
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className="productInfo">
+                                            <div className="productTitle">
+                                                {product.name}
+                                            </div>
+                                            <div>
+                                                <span>4.3</span>&nbsp;
+                                                <span>353</span>
+                                            </div>
+                                            <div className="productPrice">
+                                                {product.price}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="productInfo">
-                                        <div className="productTitle">
-                                            {product.name}
-                                        </div>
-                                        <div>
-                                            <span>4.3</span>&nbsp;
-                                            <span>353</span>
-                                        </div>
-                                        <div className="productPrice">
-                                            {product.price}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                                )
+                            )}
                         </div>
                     </div>
                 )

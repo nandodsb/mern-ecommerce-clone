@@ -75,11 +75,13 @@ export default (state = initialState, action) => {
 
         case categoryConstants.ADD_NEW_CATEGORY_SUCCESS:
             const category = action.payload.category
+
             const updatedCategories = buildNewCategories(
                 category.parentId,
                 state.categories,
                 category
             )
+            
             console.log(updatedCategories)
 
             state = {
