@@ -51,6 +51,7 @@ const Category = (props) => {
         //console.log(cat)
         setShow(false)
     }
+
     const handleShow = () => setShow(true)
 
     const renderCategories = (categories) => {
@@ -97,15 +98,15 @@ const Category = (props) => {
         const expandedArray = []
 
         checked.length > 0 &&
-            checked.forEach((categoryId, _index) => {
+            checked.forEach((categoryId, index) => {
                 const category = categories.find(
-                    (category, i) => categoryId == category.value
+                    (category, _index) => categoryId == category.value
                 )
                 category && checkedArray.push(category)
             })
 
         expanded.length > 0 &&
-            expanded.forEach((categoryId, _index) => {
+            expanded.forEach((categoryId, index) => {
                 const category = categories.find(
                     (category, _index) => categoryId == category.value
                 )
@@ -126,15 +127,13 @@ const Category = (props) => {
 
     const handleCategoryInput = (key, value, index, type) => {
         if (type == 'checked') {
-            const updatedCheckedArray = checkedArray.map(
-                (item, _index) => (index) =>
-                    _index ? { ...item, [key]: value } : item
+            const updatedCheckedArray = checkedArray.map((item, _index) =>
+                index == _index ? { ...item, [key]: value } : item
             )
             setCheckedArray(updatedCheckedArray)
         } else if (type == 'expanded') {
-            const updatedExpandedArray = expandedArray.map(
-                (item, _index) => (index) =>
-                    _index ? { ...item, [key]: value } : item
+            const updatedExpandedArray = expandedArray.map((item, _index) =>
+                index == _index ? { ...item, [key]: value } : item
             )
             setExpandedArray(updatedExpandedArray)
         }
@@ -163,7 +162,7 @@ const Category = (props) => {
     const renderUpdateCategoriesModal = () => (
         <Modal
             show={updateCategoryModal}
-            handleClose={updateCategoriesForm}
+            handleClose={updateCategoriesForm} //NOTE
             modalTitle={'Update Categories'}
             size="lg"
         >
