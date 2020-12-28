@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCategory, updateCategories } from '../../actions'
+import { addCategory, updateCategories, getAllCategory } from '../../actions'
 import Layout from '../../components/Layout'
 import Input from '../../components/UI/Input'
 import Modal from '../../components/UI/Modal'
@@ -31,6 +31,10 @@ const Category = (props) => {
 
     const category = useSelector((state) => state.category)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        //
+    }, [])
 
     const handleClose = () => {
         const form = new FormData()
@@ -146,15 +150,21 @@ const Category = (props) => {
             form.append('_id', item.value)
             form.append('name', item.name)
             form.append('parentId', item.parentId ? item.parentId : '')
+            form.append('type', item.type)
         })
 
         checkedArray.forEach((item, index) => {
             form.append('_id', item.value)
             form.append('name', item.name)
             form.append('parentId', item.parentId ? item.parentId : '')
+            form.append('type', item.type)
         })
 
-        dispatch(updateCategories(form))
+        dispatch(updateCategories(form)).then((result) => {
+            if (result) {
+                dispatch(getAllCategory())
+            }
+        })
 
         setUpdateCategoryModal(false)
     }
