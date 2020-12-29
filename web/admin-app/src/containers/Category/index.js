@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCategory, updateCategories, getAllCategory } from '../../actions'
+import {
+    addCategory,
+    updateCategories,
+    getAllCategory,
+    deleteCategories as deleteCategoriesAction,
+} from '../../actions'
 import Layout from '../../components/Layout'
 import Input from '../../components/UI/Input'
 import Modal from '../../components/UI/Modal'
@@ -28,6 +33,7 @@ const Category = (props) => {
     const [checkedArray, setCheckedArray] = useState([])
     const [expandedArray, setExpandedArray] = useState([])
     const [updateCategoryModal, setUpdateCategoryModal] = useState(false)
+    const [deleteCategoryModal, setDeleteCategoryModal] = useState(false)
 
     const category = useSelector((state) => state.category)
     const dispatch = useDispatch()
@@ -95,7 +101,11 @@ const Category = (props) => {
 
     /*NOTE  */
     const updateCategory = () => {
+        updateCheckedAndExpandedCategories()
         setUpdateCategoryModal(true)
+    }
+
+    const updateCheckedAndExpandedCategories = () => {
         const categories = createCategoryList(category.categories)
 
         const checkedArray = []
@@ -119,14 +129,6 @@ const Category = (props) => {
 
         setCheckedArray(checkedArray)
         setExpandedArray(expandedArray)
-
-        console.log({
-            checked,
-            expanded,
-            categories,
-            checkedArray,
-            expandedArray,
-        })
     }
 
     const handleCategoryInput = (key, value, index, type) => {
@@ -300,6 +302,65 @@ const Category = (props) => {
         </Modal>
     )
 
+    const deleteCategory = () => {
+        updateCheckedAndExpandedCategories()
+        setDeleteCategoryModal(true)
+    }
+
+    const deleteCategories = () => {
+        const checkedIdsArray = checkedArray.map((item, index) => ({
+            _id: item.value,
+        }))
+
+        const expandedIdsArray = expandedArray.map((item, index) => ({
+            _id: item.value,
+        }))
+
+        const idsArray = expandedIdsArray.concat(checkedIdsArray)
+
+        dispatch(deleteCategoriesAction(idsArray)).then((result) => {
+            if (result) {
+                dispatch(getAllCategory())
+                setDeleteCategoryModal(false)
+            }
+        })
+    }
+
+    const renderDeleteCategoryModal = () => {
+        return (
+            <Modal
+                modalTitle="Confirm"
+                show={deleteCategoryModal}
+                handleClose={() => setDeleteCategoryModal(false)}
+                buttons={[
+                    {
+                        label: 'No',
+                        color: 'primary',
+                        onClick: () => {
+                            alert('no')
+                        },
+                    },
+
+                    {
+                        label: 'Yes',
+                        color: 'danger',
+                        onClick: deleteCategories,
+                    },
+                ]}
+            >
+                <h5>Expanded</h5>
+                {expandedArray.map((item, index) => (
+                    <span key={index}>{item.name}</span>
+                ))}
+
+                <h5>Checked</h5>
+                {checkedArray.map((item, index) => (
+                    <span key={index}>{item.name}</span>
+                ))}
+            </Modal>
+        )
+    }
+
     const renderAddCategoryModal = () => (
         <Modal
             show={show}
@@ -375,12 +436,13 @@ const Category = (props) => {
                 <Row>
                     <Col>
                         <Button onClick={updateCategory}>Edit</Button>
-                        <Button>Delete</Button>
+                        <Button onClick={deleteCategory}>Delete</Button>
                     </Col>
                 </Row>
             </Container>
             {renderAddCategoryModal()}
             {renderUpdateCategoriesModal()}
+            {renderDeleteCategoryModal()}
         </Layout>
     )
 }
