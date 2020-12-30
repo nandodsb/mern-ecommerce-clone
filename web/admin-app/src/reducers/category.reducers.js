@@ -81,7 +81,7 @@ export default (state = initialState, action) => {
                 state.categories,
                 category
             )
-            
+
             console.log(updatedCategories)
 
             state = {
@@ -95,6 +95,27 @@ export default (state = initialState, action) => {
             state = {
                 ...initialState,
                 loading: false,
+                error: action.payload.error,
+            }
+            break
+
+        case categoryConstants.UPDATE_CATEGORIES_REQUEST:
+            state = {
+                ...state,
+                loading: true,
+            }
+            break
+
+        case categoryConstants.GET_ALL_CATEGORIES_SUCCESS:
+            state = {
+                ...state,
+                loading: false,
+            }
+            break
+
+        case categoryConstants.UPDATE_CATEGORIES_FAILURE:
+            state = {
+                ...state,
                 error: action.payload.error,
             }
             break
