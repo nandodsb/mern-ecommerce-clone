@@ -64,7 +64,7 @@ export const updateCategories = (form) => {
             })
         }
     }
-}
+} 
 
 export const deleteCategories = (ids) => {
     return async (dispatch) => {
