@@ -193,6 +193,7 @@ const Category = (props) => {
                 }
             })
         }
+        setDeleteCategoryModal(false)
     }
 
     const renderDeleteCategoryModal = () => {

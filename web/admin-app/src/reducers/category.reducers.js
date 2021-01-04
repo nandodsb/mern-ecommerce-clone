@@ -117,6 +117,29 @@ export default (state = initialState, action) => {
             state = {
                 ...state,
                 error: action.payload.error,
+                loading: false,
+            }
+            break
+
+        case categoryConstants.DELETE_CATEGORIES_REQUEST:
+            state = {
+                ...state,
+                loading: true,
+            }
+            break
+
+        case categoryConstants.DELETE_CATEGORIES_SUCCESS:
+            state = {
+                ...state,
+                loading: false,
+            }
+            break
+
+        case categoryConstants.DELETE_CATEGORIES_FAILURE:
+            state = {
+                ...state,
+                loading: false,
+                error: action.payload.error,
             }
             break
     }
