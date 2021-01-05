@@ -6,18 +6,19 @@ const config = require('./config/key')
 const path = require('path')
 const cors = require('cors')
 
-//ANCHOR Routes
+//NOTE Routes
 const authRoutes = require('./routes/auth')
 const adminRoutes = require('./routes/admin/auth')
 const categoryRoutes = require('./routes/category')
 const productRoutes = require('./routes/product')
 const cartRoutes = require('./routes/cart')
 const initialDataRoutes = require('./routes/admin/initialData')
+const pageRoutes = require('./routes/admin/page')
 
-//ANCHOR Variables
+//NOTE Variables
 env.config()
 
-//ANCHOR Mongoose Connection
+//NOTE Mongoose Connection
 mongoose
     .connect(config.mongoURI, {
         useNewUrlParser: true,
@@ -28,7 +29,7 @@ mongoose
     .then(() => console.log('Database is connected'))
     .catch((err) => console.log(err))
 
-//ANCHOR Middleware
+//NOTE Middleware
 
 app.use(cors())
 app.use(express.json())
@@ -39,8 +40,9 @@ app.use('/api', categoryRoutes)
 app.use('/api', productRoutes)
 app.use('/api', cartRoutes)
 app.use('/api', initialDataRoutes)
+app.use('/api', pageRoutes)
 
-//ANCHOR Server Port
+//NOTE Server Port
 const port = process.env.PORT || 3333
 
 app.listen(port, () => {
