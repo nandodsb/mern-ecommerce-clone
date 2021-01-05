@@ -26,10 +26,12 @@ function NewPage(props) {
 
     const handleBannerImages = (e) => {
         console.log(e)
+        setBanners([...banners, e.target.files[0]])
     }
 
     const handleProductImages = (e) => {
         console.log(e)
+        setProducts([...products, e.target.files[0]])
     }
 
     const renderCreatePageModal = () => {
@@ -80,6 +82,13 @@ function NewPage(props) {
                         </Col>
                     </Row>
 
+                    {banners.length > 0
+                        ? banners.map((banner, index) => (
+                              <Row>
+                                  <Col key={index}>{banner.name}</Col>
+                              </Row>
+                          ))
+                        : null}
                     <Row>
                         <Col>
                             <Input
@@ -91,6 +100,13 @@ function NewPage(props) {
                         </Col>
                     </Row>
 
+                    {products.length > 0
+                        ? products.map((product, index) => (
+                              <Row>
+                                  <Col key={index}>{product.name}</Col>
+                              </Row>
+                          ))
+                        : null}
                     <Row>
                         <Col>
                             <Input
