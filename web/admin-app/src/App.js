@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import './App.css'
 import PrivateRoute from './components/Hoc/PrivateRoute'
 import Home from './containers/Home'
+import Page from './containers/NewPage'
 import Signin from './containers/Signin'
 import Signup from './containers/Signup'
 import Products from './containers/Products'
@@ -28,6 +29,7 @@ function App() {
         <div className="App">
             <Switch>
                 <PrivateRoute exact path="/" component={Home} />
+                <PrivateRoute path="/page" component={Page} />
                 <PrivateRoute path="/category" component={Category} />
                 <PrivateRoute path="/products" component={Products} />
                 <PrivateRoute path="/orders" component={Orders} />
