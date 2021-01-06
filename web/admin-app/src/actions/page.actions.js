@@ -1,21 +1,24 @@
 import axios from '../helpers/axios'
-import { productConstants } from './constants'
+import { pageConstants, productConstants } from './constants'
 
-export const addProduct = (form) => {
+export const createPage = (form) => {
     return async (dispatch) => {
-        dispatch({ type: productConstants.ADD_NEW_PRODUCT_REQUEST })
-        const res = await axios.post(`/product/create`, form)
-        console.log(res)
-        if (res.status === 201) {
-            dispatch({
-                type: productConstants.ADD_NEW_PRODUCT_SUCCESS,
-                payload: { product: res.data.product },
-            })
-        } else {
-            dispatch({
-                type: productConstants.ADD_NEW_PRODUCT_FAILURE,
-                payload: res.data.error,
-            })
+        dispatch({ type: pageConstants.CREATE_PAGE_REQUEST })
+        try {
+            const res = await axios.post('/page/create', form)
+            if (res.status === 201) {
+                dispatch({
+                    type: pageConstants.CREATE_PAGE_SUCCESS,
+                    payload: { page: res.data.page },
+                })
+            } else {
+                dispatch({
+                    type: pageConstants.CREATE_PAGE_FAILURE,
+                    payload: { error: res.data.error },
+                })
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 }
