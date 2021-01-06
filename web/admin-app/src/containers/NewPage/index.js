@@ -12,6 +12,7 @@ function NewPage(props) {
     const [categories, setCategories] = useState([])
     const [categoryId, setCategoryId] = useState([])
     const [desc, setDesc] = useState('')
+    const [type, setType] = useState('')
     const [banners, setBanners] = useState([])
     const [products, setProducts] = useState([])
 
@@ -24,6 +25,14 @@ function NewPage(props) {
 
     //console.log('categories', categories)
 
+    const onCategoryChange = (e) => {
+        const category = categories.find(
+            (category) => category._id == e.target.value
+        )
+        setCategoryId(e.target.value)
+        setType(category.type)
+    }
+
     const handleBannerImages = (e) => {
         console.log(e)
         setBanners([...banners, e.target.files[0]])
@@ -34,12 +43,39 @@ function NewPage(props) {
         setProducts([...products, e.target.files[0]])
     }
 
+    const submitPageForm = (e) => {
+        //e.target.preventDefault()
+
+        if (title === '') {
+            alert('Title is required')
+            setCreateModal(false)
+            return
+        }
+
+        const form = new FormData()
+
+        form.append('title', title)
+        form.append('description', desc)
+        form.append('category', categoryId)
+        form.append('type', type)
+
+        banners.forEach((banner, index) => {
+            form.append('banners', banner)
+        })
+
+        products.forEach((product, index) => {
+            form.append('products', product)
+        })
+
+        console.log({ title, desc, categoryId, type, banners, products })
+    }
+
     const renderCreatePageModal = () => {
         return (
             <Modal
                 show={createModal}
                 modalTitle={`Create New Modal`}
-                handleClose={() => setCreateModal(false)}
+                handleClose={submitPageForm}
             >
                 <Container>
                     <Row>
@@ -47,7 +83,7 @@ function NewPage(props) {
                             <select
                                 className="form-control form-control-sm"
                                 value={categoryId}
-                                onChange={(e) => setCategoryId(e.target.value)}
+                                onChange={onCategoryChange}
                             >
                                 <option value="">select category</option>
                                 {categories.map((cat) => (
@@ -84,8 +120,8 @@ function NewPage(props) {
 
                     {banners.length > 0
                         ? banners.map((banner, index) => (
-                              <Row>
-                                  <Col key={index}>{banner.name}</Col>
+                              <Row key={index}>
+                                  <Col>{banner.name}</Col>
                               </Row>
                           ))
                         : null}
@@ -102,8 +138,8 @@ function NewPage(props) {
 
                     {products.length > 0
                         ? products.map((product, index) => (
-                              <Row>
-                                  <Col key={index}>{product.name}</Col>
+                              <Row key={index}>
+                                  <Col>{product.name}</Col>
                               </Row>
                           ))
                         : null}
