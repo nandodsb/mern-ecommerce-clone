@@ -60,7 +60,7 @@ const Category = (props) => {
         dispatch(addCategory(form))
         setCategoryName('')
         setParentCategoryId('')
-
+        dispatch(getAllCategory()) //
         setShow(false)
     }
 
@@ -78,6 +78,7 @@ const Category = (props) => {
                     renderCategories(category.children),
             })
         }
+
         return myCategories
     }
 
@@ -94,6 +95,7 @@ const Category = (props) => {
                 createCategoryList(category.children, options)
             }
         }
+
         return options
     }
 

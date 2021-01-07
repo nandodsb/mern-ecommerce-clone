@@ -27,6 +27,4 @@ exports.createPage = (req, res) => {
             res.status(201).json({ page })
         }
     })
-
-    res.status(200).json({ body: req.body })
 }

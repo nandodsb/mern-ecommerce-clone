@@ -4,7 +4,8 @@ import Input from '../../components/UI/Input'
 import Layout from '../../components/Layout'
 import { Row, Col, Container } from 'react-bootstrap'
 import linearCategories from '../../helpers/linearCategories'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { createPage } from '../../actions'
 
 function NewPage(props) {
     const [createModal, setCreateModal] = useState(false)
@@ -17,6 +18,7 @@ function NewPage(props) {
     const [products, setProducts] = useState([])
 
     const category = useSelector((state) => state.category)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         //console.log('category', category)
@@ -67,7 +69,9 @@ function NewPage(props) {
             form.append('products', product)
         })
 
-        console.log({ title, desc, categoryId, type, banners, products })
+        dispatch(createPage(form))
+
+        //console.log({ title, desc, categoryId, type, banners, products })
     }
 
     const renderCreatePageModal = () => {
@@ -86,8 +90,8 @@ function NewPage(props) {
                                 onChange={onCategoryChange}
                             >
                                 <option value="">select category</option>
-                                {categories.map((cat) => (
-                                    <option key={cat._id} value={cat._id}>
+                                {categories.map((cat, index) => (
+                                    <option key={index} value={cat._id}>
                                         {cat.name}
                                     </option>
                                 ))}
