@@ -18,12 +18,20 @@ function NewPage(props) {
     const [products, setProducts] = useState([])
 
     const category = useSelector((state) => state.category)
+    const page = useSelector((state) => state.page)
     const dispatch = useDispatch()
 
     useEffect(() => {
         //console.log('category', category)
         setCategories(linearCategories(category.categories))
     }, [category])
+
+    useEffect(() => {
+        console.log('page', page)
+        if (!page.loading) {
+            setCreateModal(false)
+        }
+    }, [page])
 
     //console.log('categories', categories)
 

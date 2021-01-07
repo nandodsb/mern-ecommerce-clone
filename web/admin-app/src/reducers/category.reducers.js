@@ -108,7 +108,7 @@ export default (state = initialState, action) => {
             }
             break
 
-        case categoryConstants.GET_ALL_CATEGORIES_SUCCESS:
+        case categoryConstants.UPDATE_CATEGORIES_SUCCESS:
             state = {
                 ...state,
                 loading: false,
