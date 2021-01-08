@@ -1,5 +1,5 @@
 import axios from '../helpers/axios'
-import { pageConstants, productConstants } from './constants'
+import { pageConstants } from './constants'
 
 export const createPage = (form) => {
     return async (dispatch) => {

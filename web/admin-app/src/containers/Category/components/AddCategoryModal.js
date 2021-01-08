@@ -35,8 +35,8 @@ const AddCategoryModal = (props) => {
                         onChange={(e) => setParentCategoryId(e.target.value)}
                     >
                         <option value="">Select Category</option>3
-                        {categoryList.map((option) => (
-                            <option key={option.value} value={option.value}>
+                        {categoryList.map((option, index) => (
+                            <option key={index} value={option.value}>
                                 {option.name}
                             </option>
                         ))}

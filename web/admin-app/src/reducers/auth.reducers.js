@@ -16,7 +16,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-    console.log(action)
+    //console.log(action)
 
     // eslint-disable-next-line
     switch (action.type) {

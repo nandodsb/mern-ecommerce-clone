@@ -26,7 +26,7 @@ Axios.interceptors.response.use(
     },
     (error) => {
         console.log(error.response)
-        const { status } = error.response
+        const { status } = error.response //!
         if (status === 500) {
             localStorage.clear()
             store.dispatch({

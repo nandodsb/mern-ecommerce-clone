@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -42,17 +42,8 @@ const Category = (props) => {
     const category = useSelector((state) => state.category)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        //
-    }, [])
-
     const handleClose = () => {
         const form = new FormData()
-
-        /*if(categoryName === ''){
-            alert('Name is required')
-            return 
-        }*/
 
         form.append('name', categoryName)
         form.append('parentId', parentCategoryId)
@@ -60,7 +51,6 @@ const Category = (props) => {
         dispatch(addCategory(form))
         setCategoryName('')
         setParentCategoryId('')
-        dispatch(getAllCategory()) //
         setShow(false)
     }
 
@@ -86,7 +76,7 @@ const Category = (props) => {
     const createCategoryList = (categories, options = []) => {
         for (let category of categories) {
             options.push({
-                _id: category._id,
+                value: category._id,
                 name: category.name,
                 parentId: category.parentId,
                 type: category.type,
@@ -191,12 +181,13 @@ const Category = (props) => {
         if (checkedIdsArray.length > 0) {
             dispatch(deleteCategoriesAction(checkedIdsArray)).then((result) => {
                 if (result) {
-                    dispatch(getAllCategory())
                     setDeleteCategoryModal(false)
+                    dispatch(getAllCategory())
                 }
             })
         }
         setDeleteCategoryModal(false)
+        dispatch(getAllCategory())
     }
 
     const renderDeleteCategoryModal = () => {
