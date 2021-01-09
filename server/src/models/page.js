@@ -34,7 +34,12 @@ const pageSchema = new mongoSchema(
             },
         ],
 
-        category: { type: schemaTypes, ref: 'Category', required: true },
+        category: {
+            type: schemaTypes,
+            ref: 'Category',
+            required: true,
+            unique: true,
+        },
 
         createdBy: {
             type: schemaTypes,

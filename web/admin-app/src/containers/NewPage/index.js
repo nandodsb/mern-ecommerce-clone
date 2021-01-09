@@ -191,9 +191,7 @@ function NewPage(props) {
     return (
         <Layout sidebar>
             {page.loading ? (
-                <Fragment>
-                    <Loader />
-                </Fragment>
+                <Fragment>...</Fragment>
             ) : (
                 <Fragment>
                     {renderCreatePageModal()}

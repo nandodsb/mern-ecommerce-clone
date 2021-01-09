@@ -4,7 +4,7 @@ const {
     requireSignin,
     adminMiddleware,
 } = require('../../common-middleware')
-const { createPage } = require('../../controller/admin/pageController')
+const { createPage, getPage } = require('../../controller/admin/pageController')
 const router = express.Router()
 
 router.post(
@@ -14,5 +14,7 @@ router.post(
     upload.fields([{ name: 'banners' }, { name: 'products' }]),
     createPage
 )
+
+router.get('/page/:category/:type', getPage)
 
 module.exports = router
