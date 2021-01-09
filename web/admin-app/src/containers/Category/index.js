@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -42,8 +42,20 @@ const Category = (props) => {
     const category = useSelector((state) => state.category)
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        if (!category.loading) {
+            setShow(false)
+        }
+    }, [category.loading])
+
     const handleClose = () => {
         const form = new FormData()
+
+        if (categoryName === '') {
+            alert('Category name is required')
+            setShow(false)
+            return
+        }
 
         form.append('name', categoryName)
         form.append('parentId', parentCategoryId)
@@ -156,10 +168,8 @@ const Category = (props) => {
             form.append('parentId', item.parentId ? item.parentId : '')
             form.append('type', item.type)
         })
-
-        dispatch(updateCategories(form))
-
         setUpdateCategoryModal(false)
+        dispatch(updateCategories(form))
     }
 
     const deleteCategory = () => {
@@ -284,7 +294,8 @@ const Category = (props) => {
 
             <AddCategoryModal
                 show={show}
-                handleClose={handleClose}
+                handleClose={() => setShow(false)}
+                onSubmit={handleClose}
                 modalTitle={'Add New Category'}
                 categoryName={categoryName}
                 setCategoryName={setCategoryName}
@@ -296,7 +307,8 @@ const Category = (props) => {
 
             <UpdateCategoriesModal
                 show={updateCategoryModal}
-                handleClose={updateCategoriesForm}
+                handleClose={() => setUpdateCategoryModal(false)}
+                onSubmit={updateCategoriesForm}
                 modalTitle={'Update Categories'}
                 size="lg"
                 expandedArray={expandedArray}

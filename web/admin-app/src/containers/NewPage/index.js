@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import Modal from '../../components/UI/Modal'
 import Input from '../../components/UI/Input'
 import Layout from '../../components/Layout'
+import Loader from '../../components/Loader'
 import { Row, Col, Container } from 'react-bootstrap'
 import linearCategories from '../../helpers/linearCategories'
 import { useSelector, useDispatch } from 'react-redux'
 import { createPage } from '../../actions'
+import { Fragment } from 'react'
 
 function NewPage(props) {
     const [createModal, setCreateModal] = useState(false)
@@ -30,6 +32,11 @@ function NewPage(props) {
         console.log('page', page)
         if (!page.loading) {
             setCreateModal(false)
+            setTitle('')
+            setCategoryId('')
+            setDesc('')
+            setProducts([])
+            setBanners([])
         }
     }, [page])
 
@@ -37,7 +44,7 @@ function NewPage(props) {
 
     const onCategoryChange = (e) => {
         const category = categories.find(
-            (category) => category._id == e.target.value
+            (category) => category.value == e.target.value
         )
         setCategoryId(e.target.value)
         setType(category.type)
@@ -87,12 +94,13 @@ function NewPage(props) {
             <Modal
                 show={createModal}
                 modalTitle={`Create New Modal`}
-                handleClose={submitPageForm}
+                handleClose={() => setCreateModal(false)}
+                onSubmit={submitPageForm}
             >
                 <Container>
                     <Row>
                         <Col>
-                            <select
+                            {/*<select
                                 className="form-control form-control-sm"
                                 value={categoryId}
                                 onChange={onCategoryChange}
@@ -104,7 +112,15 @@ function NewPage(props) {
                                     </option>
                                 ))}
                             </select>
-                            <br />
+                            <br />*/}
+
+                            <Input
+                                type="select"
+                                value={categoryId}
+                                onChange={onCategoryChange}
+                                options={categories}
+                                placeholder="Select category"
+                            />
                         </Col>
                     </Row>
 
@@ -130,6 +146,7 @@ function NewPage(props) {
                         </Col>
                     </Row>
 
+                    <label className="form-control-sm">Upload Banners</label>
                     {banners.length > 0
                         ? banners.map((banner, index) => (
                               <Row key={index}>
@@ -148,6 +165,7 @@ function NewPage(props) {
                         </Col>
                     </Row>
 
+                    <label className="form-control-sm">Upload Products</label>
                     {products.length > 0
                         ? products.map((product, index) => (
                               <Row key={index}>
@@ -172,8 +190,16 @@ function NewPage(props) {
 
     return (
         <Layout sidebar>
-            {renderCreatePageModal()}
-            <button onClick={() => setCreateModal(true)}>Create</button>
+            {page.loading ? (
+                <Fragment>
+                    <Loader />
+                </Fragment>
+            ) : (
+                <Fragment>
+                    {renderCreatePageModal()}
+                    <button onClick={() => setCreateModal(true)}>Create</button>
+                </Fragment>
+            )}
         </Layout>
     )
 }
