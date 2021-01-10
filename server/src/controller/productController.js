@@ -35,7 +35,7 @@ exports.createProduct = (req, res) => {
 exports.getProductsBySlug = (req, res) => {
     const { slug } = req.params
     Category.findOne({ slug: slug })
-        .select('_id')
+        .select('_id type')
         .exec((error, category) => {
             if (error) {
                 return res.status(400).json({ error })
