@@ -25,10 +25,10 @@ exports.createPage = (req, res) => {
             Page.findOneAndUpdate(
                 { category: req.body.category },
                 req.body
-            ).exec((error, updatePage) => {
+            ).exec((error, updatedPage) => {
                 if (error) return res.status(400).json({ error })
-                if (updatePage) {
-                    return res.status(201).json({ page: updatePage })
+                if (updatedPage) {
+                    return res.status(201).json({ page: updatedPage })
                 }
             })
         } else {
@@ -37,7 +37,7 @@ exports.createPage = (req, res) => {
                 if (error) return res.status(400).json({ error })
 
                 if (page) {
-                    res.status(201).json({ page })
+                    return res.status(201).json({ page })
                 }
             })
         }

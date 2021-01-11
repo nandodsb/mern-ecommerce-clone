@@ -43,7 +43,6 @@ export default (state = initialState, action) => {
         case productConstants.GET_PRODUCT_PAGE_FAILURE:
             state = {
                 ...state,
-
                 pageRequest: false,
                 error: action.payload.error,
             }

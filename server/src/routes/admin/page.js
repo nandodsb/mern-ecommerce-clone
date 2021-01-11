@@ -15,6 +15,6 @@ router.post(
     createPage
 )
 
-router.get('/page/:category/:type', getPage)
+router.get(`/page/:category/:type`, getPage)
 
 module.exports = router

@@ -12,7 +12,7 @@ export const getProductsBySlug = (slug) => {
         } else {
             //
         }
-        //console.log(res)
+        console.log(res)
     }
 }
 
@@ -22,7 +22,7 @@ export const getProductPage = (payload) => {
             const { cid, type } = payload.params
             //console.log({ payload })
             const res = await axios.get(`/page/${cid}/${type}`)
-            //console.log(res)
+            console.log('Response', res)
             dispatch({
                 type: productConstants.GET_PRODUCT_PAGE_REQUEST,
             })
@@ -40,9 +40,21 @@ export const getProductPage = (payload) => {
                     payload: { error },
                 })
             }
-            //console.log(res)
         } catch (error) {
             console.log(error)
         }
     }
 }
+
+/*export const getProductPage = ({ params }) => {
+    return async (dispatch) => {
+        const { cid, type } = params
+        console.log(params)
+        const res = await axios.get(`/page/${cid}/${type}`)
+        console.log('Response', res)
+
+        if (res.status === 200) {
+        } else {
+        }
+    }
+}*/
