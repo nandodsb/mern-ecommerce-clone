@@ -42,10 +42,14 @@ const Header = (props) => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 rightElement={<a href="#">Forgot?</a>}
                             />
+
                             <MaterialButton
                                 title="Login"
                                 bgColor="#fb641b"
                                 textColor="#ffffff"
+                                style={{
+                                    margin: '40px 0',
+                                }}
                             />
                         </div>
                     </div>
