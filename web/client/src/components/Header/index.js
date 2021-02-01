@@ -48,7 +48,18 @@ const Header = (props) => {
                                 bgColor="#fb641b"
                                 textColor="#ffffff"
                                 style={{
-                                    margin: '40px 0',
+                                    margin: '40px 0 20px 0',
+                                }}
+                            />
+
+                            <p>OR</p>
+
+                            <MaterialButton
+                                title="Request OTP"
+                                bgColor="#ffffff"
+                                textColor="#2874f0"
+                                style={{
+                                    margin: '20px 0',
                                 }}
                             />
                         </div>

@@ -63,12 +63,16 @@ const MaterialButton = (props) => {
         <div
             style={{
                 width: '90%',
-                backgroundColor: props.bgColor,
-                textColor: props.textColor,
                 ...props.style,
             }}
         >
-            <button className="materialButton">
+            <button
+                className="materialButton"
+                style={{
+                    backgroundColor: props.bgColor,
+                    color: props.textColor,
+                }}
+            >
                 {props.title && props.title}
             </button>
         </div>
