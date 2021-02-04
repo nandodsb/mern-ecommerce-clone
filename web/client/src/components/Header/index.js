@@ -9,11 +9,18 @@ import {
     MaterialButton,
     DropdownMenu,
 } from '../MaterialUI'
+import { useDispatch } from 'react-redux'
+import { login } from '../../actions'
 
 const Header = (props) => {
     const [loginModal, setLoginModal] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
+
+    const userLogin = () => {
+        dispatch(login({ email, password }))
+    }
 
     return (
         <div className="header">
@@ -50,6 +57,7 @@ const Header = (props) => {
                                 style={{
                                     margin: '40px 0 20px 0',
                                 }}
+                                onClick={userLogin}
                             />
 
                             <p>OR</p>
