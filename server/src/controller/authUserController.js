@@ -69,7 +69,7 @@ exports.signin = (req, res) => {
                     },
                 })
             } else {
-                return res.status(400).json({ message: 'Invalid password' })
+                return res.status(400).json({ message: 'Something went wrong' })
             }
         } else {
             return res.status(400).json({ message: 'Something went wrong' })
