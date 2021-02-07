@@ -9,17 +9,32 @@ import {
     MaterialButton,
     DropdownMenu,
 } from '../MaterialUI'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../actions'
 
 const Header = (props) => {
     const [loginModal, setLoginModal] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const auth = useSelector((state) => state.auth)
     const dispatch = useDispatch()
 
     const userLogin = () => {
         dispatch(login({ email, password }))
+    }
+
+    /*useEffect(() => {
+        if(auth.authenticate){
+
+        }
+    }, [auth.authenticate])*/
+
+    const renderLoggedInMenu = () => {
+        //
+    }
+
+    const renderNonLoggedInMenu = () => {
+        //
     }
 
     return (
