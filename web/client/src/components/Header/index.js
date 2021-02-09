@@ -63,10 +63,9 @@ const Header = (props) => {
             <DropdownMenu
                 menu={
                     <a
-                        className="loginButton"
-                        onClick={() => setLoginModal(true)}
+                        
                     >
-                        Login
+                        {auth.user.fullName}
                     </a>
                 }
                 menus={[
