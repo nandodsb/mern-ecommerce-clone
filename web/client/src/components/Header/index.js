@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './style.css'
 import flipkartLogo from '../../images/logo/flipkart.png'
 import goldenStar from '../../images/logo/golden-star.png'
@@ -23,15 +23,52 @@ const Header = (props) => {
         dispatch(login({ email, password }))
     }
 
-    /*useEffect(() => {
-        if(auth.authenticate){
+    useEffect(() => {
+        /*if(auth.authenticate){
 
-        }
-    }, [auth.authenticate])*/
+        }*/
+    }, [auth.authenticate])
 
     const renderLoggedInMenu = () => {
         return (
             <DropdownMenu
+                menu={<a>{auth.user.fullName}</a>}
+                menus={[
+                    { label: 'My Profile', href: '', icon: null },
+                    { label: 'SuperCoin Zone', href: '', icon: null },
+                    { label: 'Flipkart Plus Zone', href: '', icon: null },
+                    { label: 'Orders', href: '', icon: null },
+                    { label: 'Wishlist', href: '', icon: null },
+                    { label: 'MyChats', href: '', icon: null },
+                    { label: 'Coupons', href: '', icon: null },
+                    { label: 'Rewards', href: '', icon: null },
+                    { label: 'Notifications', href: '', icon: null },
+                    { label: 'Gift Cards', href: '', icon: null },
+                    { label: 'Logout', href: '', icon: null },
+                ]}
+                firstMenu={
+                    <div className="firstmenu">
+                        <span>New Customer?</span>
+                        <a style={{ color: '#2874f0' }}>Sign Up</a>
+                    </div>
+                }
+            />
+        )
+    }
+
+    const renderNonLoggedInMenu = () => {
+        return (
+            <DropdownMenu
+                menu={
+                    <a
+                        className="loginButton"
+                        onClick={() => {
+                            setLoginModal(true)
+                        }}
+                    >
+                        Login
+                    </a>
+                }
                 menu={
                     <a className="more">
                         <span>More</span>
@@ -53,37 +90,6 @@ const Header = (props) => {
                     { label: 'Advertise', href: '', icon: null },
                     { label: 'Download App', href: '', icon: null },
                 ]}
-            />
-        )
-    }
-
-    const renderNonLoggedInMenu = () => {
-        //
-        return (
-            <DropdownMenu
-                menu={
-                    <a
-                        
-                    >
-                        {auth.user.fullName}
-                    </a>
-                }
-                menus={[
-                    { label: 'My Profile', href: '', icon: null },
-                    { label: 'SuperCoin Zone', href: '', icon: null },
-                    { label: 'Flipkart Plus Zone', href: '',icon: null,    },
-                    { label: 'Orders', href: '', icon: null },
-                    { label: 'Wishlist', href: '', icon: null },
-                    { label: 'MyChats', href: '', icon: null },
-                    { label: 'Rewards', href: '', icon: null },
-                    { label: 'Gift Cards', href: '', icon: null },
-                ]}
-                firstMenu={
-                    <div className="firstmenu">
-                        <span>New Customer?</span>
-                        <a style={{ color: '#2874f0' }}>Sign Up</a>
-                    </div>
-                }
             />
         )
     }
@@ -130,7 +136,7 @@ const Header = (props) => {
 
                             <MaterialButton
                                 title="Request OTP"
-                                bgColor="#ffffff"
+                                bgColor="#fff"
                                 textColor="#2874f0"
                                 style={{
                                     margin: '20px 0',
@@ -171,8 +177,9 @@ const Header = (props) => {
                     </div>
                 </div>
                 <div className="rightMenu">
-                    {renderNonLoggedInMenu()}
-                    {renderLoggedInMenu()}
+                    {auth.authenticate
+                        ? renderLoggedInMenu()
+                        : renderNonLoggedInMenu()}
 
                     <div>
                         <a className="cart">

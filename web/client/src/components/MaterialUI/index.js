@@ -75,9 +75,11 @@ const MaterialButton = (props) => {
                 style={{
                     backgroundColor: props.bgColor,
                     color: props.textColor,
+                    fontSize: props.fontSize,
                 }}
                 onClick={onClick}
             >
+                {props.icon && props.icon}
                 {props.title && props.title}
             </button>
         </div>
