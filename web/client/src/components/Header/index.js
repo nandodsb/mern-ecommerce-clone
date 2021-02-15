@@ -177,6 +177,13 @@ const Header = (props) => {
                     </div>
                 </div>
                 <div className="rightMenu">
+
+                <DropdownMenu
+            menu={
+              <a className="loginButton" onClick={() => setLoginModal(true)}>
+                Login
+              </a>
+            }/>
                     {auth.authenticate
                         ? renderLoggedInMenu()
                         : renderNonLoggedInMenu()}
