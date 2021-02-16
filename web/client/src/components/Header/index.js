@@ -44,7 +44,7 @@ const Header = (props) => {
                     { label: 'Rewards', href: '', icon: null },
                     { label: 'Notifications', href: '', icon: null },
                     { label: 'Gift Cards', href: '', icon: null },
-                    { label: 'Logout', href: '', icon: null, onClick: logout },
+                    { label: 'Logout', href: '', icon: null },
                 ]}
                 firstMenu={
                     <div className="firstmenu">
@@ -60,15 +60,14 @@ const Header = (props) => {
         return (
             <DropdownMenu
                 menu={
-                    <a
-                        className="loginButton"
-                        onClick={() => {
-                            setLoginModal(true)
-                        }}
-                    >
-                        Login
-                    </a>
-                }
+                            <a
+                                className="loginButton"
+                                onClick={() => setLoginModal(true)}
+                            >
+                                Login
+                            </a>
+                        }
+                        
                 menu={
                     <a className="more">
                         <span>More</span>
@@ -177,13 +176,16 @@ const Header = (props) => {
                     </div>
                 </div>
                 <div className="rightMenu">
-
-                <DropdownMenu
-            menu={
-              <a className="loginButton" onClick={() => setLoginModal(true)}>
-                Login
-              </a>
-            }/>
+                    <DropdownMenu
+                        menu={
+                            <a
+                                className="loginButton"
+                                onClick={() => setLoginModal(true)}
+                            >
+                                Login
+                            </a>
+                        }
+                    />
                     {auth.authenticate
                         ? renderLoggedInMenu()
                         : renderNonLoggedInMenu()}
