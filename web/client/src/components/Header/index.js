@@ -46,12 +46,6 @@ const Header = (props) => {
                     { label: 'Gift Cards', href: '', icon: null },
                     { label: 'Logout', href: '', icon: null },
                 ]}
-                firstMenu={
-                    <div className="firstmenu">
-                        <span>New Customer?</span>
-                        <a style={{ color: '#2874f0' }}>Sign Up</a>
-                    </div>
-                }
             />
         )
     }
@@ -60,35 +54,27 @@ const Header = (props) => {
         return (
             <DropdownMenu
                 menu={
-                            <a
-                                className="loginButton"
-                                onClick={() => setLoginModal(true)}
-                            >
-                                Login
-                            </a>
-                        }
-                        
-                menu={
-                    <a className="more">
-                        <span>More</span>
-                        <IoIosArrowDown />
+                    <a
+                        className="loginButton"
+                        onClick={() => setLoginModal(true)}
+                    >
+                        Login
                     </a>
                 }
                 menus={[
-                    {
-                        label: 'Notification Preference',
-                        href: '',
-                        icon: null,
-                    },
-                    { label: 'Sell on flipkart', href: '', icon: null },
-                    {
-                        label: '24x7 Customer Care',
-                        href: '',
-                        icon: null,
-                    },
-                    { label: 'Advertise', href: '', icon: null },
-                    { label: 'Download App', href: '', icon: null },
+                    { label: 'My Profile', href: '', icon: null },
+                    { label: 'Flipkart Plus Zone', href: '', icon: null },
+                    { label: 'Orders', href: '', icon: null },
+                    { label: 'Wishlist', href: '', icon: null },
+                    { label: 'Rewards', href: '', icon: null },
+                    { label: 'Gift Cards', href: '', icon: null },
                 ]}
+                firstMenu={
+                    <div className="firstmenu">
+                        <span>New Customer?</span>
+                        <a style={{ color: '#2874f0' }}>Sign Up</a>
+                    </div>
+                }
             />
         )
     }
@@ -176,20 +162,33 @@ const Header = (props) => {
                     </div>
                 </div>
                 <div className="rightMenu">
-                    <DropdownMenu
-                        menu={
-                            <a
-                                className="loginButton"
-                                onClick={() => setLoginModal(true)}
-                            >
-                                Login
-                            </a>
-                        }
-                    />
                     {auth.authenticate
                         ? renderLoggedInMenu()
                         : renderNonLoggedInMenu()}
 
+                    <DropdownMenu
+                        menu={
+                            <a className="more">
+                                <span>More</span>
+                                <IoIosArrowDown />
+                            </a>
+                        }
+                        menus={[
+                            {
+                                label: 'Notification Preference',
+                                href: '',
+                                icon: null,
+                            },
+                            { label: 'Sell on flipkart', href: '', icon: null },
+                            {
+                                label: '24x7 Customer Care',
+                                href: '',
+                                icon: null,
+                            },
+                            { label: 'Advertise', href: '', icon: null },
+                            { label: 'Download App', href: '', icon: null },
+                        ]}
+                    />
                     <div>
                         <a className="cart">
                             <IoIosCart />
