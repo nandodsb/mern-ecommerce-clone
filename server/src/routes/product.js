@@ -3,6 +3,7 @@ const { requireSignin, adminMiddleware } = require('../common-middleware')
 const {
     createProduct,
     getProductsBySlug,
+    getProductDetailsById,
 } = require('../controller/productController')
 const router = express.Router()
 const multer = require('multer')
@@ -29,5 +30,6 @@ router.post(
 )
 router.get('/products/:slug', getProductsBySlug)
 //router.get('/category/getcategory', getCategories)
+router.get('/product/:productId', getProductDetailsById)
 
 module.exports = router
