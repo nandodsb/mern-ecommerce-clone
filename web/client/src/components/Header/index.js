@@ -24,9 +24,9 @@ const Header = (props) => {
     }
 
     useEffect(() => {
-        /*if(auth.authenticate){
-
-        }*/
+        if (auth.authenticate) {
+            setLoginModal(false)
+        }
     }, [auth.authenticate])
 
     const renderLoggedInMenu = () => {
